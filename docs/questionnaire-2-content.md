@@ -194,7 +194,7 @@ Please fill in one section per room. Leave blank any rooms that don't apply.
 
 Please set up the following accounts before or during the build. We'll walk you through any of these if needed.
 
-- [ ] **Resova** — Sign up at resova.com (Lite plan, $44/mo). We'll help configure rooms and settings.
+- [ ] **Resova** — Sign up at resova.com (Lite plan, $40/mo annual or $50/mo monthly). We'll help configure rooms and settings.
 - [ ] **Mailchimp** (or equivalent) — Sign up for free at mailchimp.com
 - [ ] **Google Business Profile** — Claim your listing at business.google.com (free)
 - [ ] **Domain** — Register at Cloudflare or Namecheap (~$12/yr) if not done already

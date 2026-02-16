@@ -26,7 +26,7 @@
 
 - Budget is flexible — client wanted to see options from low to high
 - 4 options were presented (see `tech-stack-options.md`)
-- **Option 2 selected:** Astro + Decap CMS + Resova ($44-55/mo ongoing)
+- **Option 2 selected:** Astro + Decap CMS + Resova ($41-51/mo ongoing)
 - Fixed project price: $4,500-$5,500 (see `project-estimate.md`)
 
 ---

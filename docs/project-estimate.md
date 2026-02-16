@@ -8,7 +8,7 @@ Custom-designed, high-performance website for Lock & Logic escape rooms with onl
 
 **Tech stack:** Astro (static site) + Tailwind CSS + Decap CMS + Resova booking platform
 **Hosting:** Vercel (free tier) — $0/mo
-**Ongoing platform cost:** Resova Lite at $44/mo (booking, waivers, gift cards included)
+**Ongoing platform cost:** Resova Lite at $40/mo annual ($50/mo monthly) — booking and gift cards included. Digital waivers require Premium upgrade or separate service (see below).
 
 ---
 
@@ -46,7 +46,7 @@ Custom-designed, high-performance website for Lock & Logic escape rooms with onl
 - Reusable booking widget component
 - **Book Now page** — full Resova booking calendar embed
 - **Gift Cards page** — Resova gift voucher purchase embed
-- **Waivers page** — Resova digital waiver signing embed
+- **Waivers page** — Resova digital waiver embed (requires Resova Premium, $108/mo annual) or third-party waiver service integration
 - CSS customization of Resova widgets to match site design
 
 ### Phase 6: Leaderboard
@@ -108,7 +108,7 @@ Final price depends on number of rooms and scope of content provided.
 
 These items are outside the scope of this estimate but required before or during the build:
 
-- **Resova account** — Sign up for Resova Lite ($44/mo), configure your rooms, time slots, pricing, and waiver text
+- **Resova account** — Sign up for Resova Lite ($40/mo annual or $50/mo monthly), configure your rooms, time slots, and pricing
 - **Domain purchase** — Register your domain (~$12/yr via Cloudflare or Namecheap)
 - **Content** — Room descriptions, about text, team photos, room photos, business hours, contact info
 - **Mailchimp account** (or equivalent) — Free tier, for newsletter subscriber management and email sends
@@ -120,12 +120,12 @@ These items are outside the scope of this estimate but required before or during
 
 | Item | Cost | Notes |
 |------|------|-------|
-| Resova Lite | $44/mo | Booking, waivers, gift cards — no per-booking fees |
+| Resova Lite | $40/mo (annual) or $50/mo (monthly) | Booking and gift cards — no per-booking fees. Digital waivers require Premium ($108/mo annual). |
 | Mailchimp (or equivalent) | $0/mo | Free up to 500 subscribers; paid plans start ~$13/mo |
 | Vercel hosting | $0/mo | Free tier covers this site's traffic |
 | Domain renewal | ~$12/yr | Annual renewal |
 | Credit card processing | 2.9% + $0.30/transaction | Standard rate, unavoidable on any platform |
-| **Total** | **~$45/mo** | Plus standard card processing on bookings |
+| **Total** | **~$41/mo** (annual) or **~$51/mo** (monthly) | Plus standard card processing on bookings |
 
 ---
 
@@ -134,7 +134,7 @@ These items are outside the scope of this estimate but required before or during
 - Logo design or branding (bring your own, or we can discuss separately)
 - Professional photography
 - Copywriting (I'll need your content — or we can discuss adding this)
-- Resova account configuration (room setup, pricing, waiver text)
+- Resova account configuration (room setup, pricing)
 - Ongoing maintenance or content updates after launch (the CMS lets you handle most of this yourself)
 - Google Ads or paid marketing setup
 - Email campaign design and copywriting (the signup form is included; creating and sending newsletters is on you)

@@ -44,48 +44,50 @@ General scheduling tools (Calendly, Acuity, Fresha, etc.) are built for salons a
 
 ---
 
-### Option 2: Smart Mid-Range (RECOMMENDED) — ~$45-55/mo fixed
+### Option 2: Smart Mid-Range (RECOMMENDED) — ~$41-51/mo fixed
 
 | Component | Choice | Cost |
 |-----------|--------|------|
 | Website | Astro + Tailwind CSS | Free |
 | CMS | Decap CMS (open source, git-based) | $0 |
 | Hosting | Vercel (free tier) | $0/mo |
-| Booking | **Resova** Lite (escape-room leader, 1,300+ clients) | $44/mo, no per-booking fees |
-| Waivers | Included in Resova | $0 |
+| Booking | **Resova** Lite (escape-room leader, 2,000+ locations) | $40/mo (annual) or $50/mo (monthly), no per-booking fees |
+| Waivers | Resova Premium required, or third-party (see note) | $0 at launch (paper waivers), digital upgrade later |
 | Gift cards | Included in Resova | $0 |
 | Domain | Cloudflare/Namecheap | ~$12/yr |
 | Contact form | Formspree (free tier) | $0 |
 | Mailing list | Mailchimp or equivalent (free tier) | $0 |
 
-**Total fixed:** ~$45/mo + standard credit card processing (2.9% + $0.30 — unavoidable on any platform)
+**Total fixed:** ~$41/mo (annual billing) or ~$51/mo (monthly billing) + standard credit card processing (2.9% + $0.30 — unavoidable on any platform)
+
+**Note on waivers:** Resova's digital waivers are only included on their Premium plan ($108/mo annual). For launch, paper waivers work fine. When ready for digital, you can either upgrade to Resova Premium or add a standalone waiver service (~$15-25/mo). We'll build the waiver page so it's ready when you are.
 
 **Pros:**
 - No per-booking fees — predictable cost, gets cheaper per-booking as volume grows
 - Full creative control (Astro = complete design freedom)
 - Owner can update content via CMS admin panel (rooms, leaderboard, photos, blog) without developer
-- Resova is purpose-built for escape rooms — game master assignment, room capacity, time slots, waivers, vouchers all native
+- Resova is purpose-built for escape rooms — game master assignment, room capacity, time slots, vouchers all native
 - $0 hosting cost, excellent performance/SEO (Astro ships zero JS by default)
 - Zapier integration for automation (review requests, email sequences)
 - Scales to more rooms/locations by upgrading Resova plan
 
-**Cons:** $44/mo regardless of volume (unfavorable if <50 bookings/mo), CMS requires upfront setup time
+**Cons:** $40-50/mo regardless of volume (unfavorable if <50 bookings/mo), digital waivers require plan upgrade or separate service, CMS requires upfront setup time
 
 **Best for:** Most single-location escape rooms with steady bookings
 
 ---
 
-### Option 3: Non-Technical Owner — ~$73-75/mo fixed
+### Option 3: Non-Technical Owner — ~$82-84/mo fixed
 
 | Component | Choice | Cost |
 |-----------|--------|------|
 | Website | **Squarespace** Business | $33/mo |
 | Booking | **Bookeo** Standard | $39.95/mo |
-| Waivers | Included in Bookeo (online + kiosk + QR code) | $0 |
+| Waivers | Bookeo digital waivers add-on (online + kiosk + QR code) | $9/mo |
 | Gift cards | Included in Bookeo | $0 |
 | Domain | Included 1st year with Squarespace | $0 initially |
 
-**Total fixed:** ~$73/mo
+**Total fixed:** ~$82/mo
 
 **Pros:** Owner is fully self-sufficient (visual editor for website + Bookeo dashboard for bookings), professional templates, fast to launch, Bookeo has excellent kiosk/QR waiver modes for in-venue use
 **Cons:** Less design control (template-based), higher monthly cost, underutilizes developer's design skills, harder to migrate away later, slightly worse performance/SEO vs static site
@@ -93,20 +95,20 @@ General scheduling tools (Calendly, Acuity, Fresha, etc.) are built for salons a
 
 ---
 
-### Option 4: Premium Full-Control — ~$91-104/mo fixed
+### Option 4: Premium Full-Control — ~$98-117/mo fixed
 
 | Component | Choice | Cost |
 |-----------|--------|------|
 | Website | **Next.js** (App Router) + React | $0 |
 | CMS | **Sanity** (free tier) | $0 |
 | Hosting | Vercel Pro | $20/mo |
-| Booking | **Resova** Pro | $65/mo |
-| Waivers | Included in Resova | $0 |
+| Booking | **Resova** Pro | $72/mo (annual) or $90/mo (monthly) |
+| Waivers | Resova Premium required for digital waivers | Upgrade to Premium adds ~$36/mo |
 | Gift cards | Included in Resova + custom gift card page | $0 |
 | Review aggregation | Elfsight (Google Reviews widget) | ~$5/mo |
 | Domain | Cloudflare/Namecheap | ~$12/yr |
 
-**Total fixed:** ~$91-104/mo
+**Total fixed:** ~$98/mo (annual, Pro) to ~$117/mo (monthly, Pro) — add ~$36/mo for Premium with waivers
 
 **Pros:** Maximum design quality (GSAP animations, 3D room previews, cinematic transitions), dynamic features (real-time leaderboard, availability indicators), Sanity is a superior CMS experience, future-proof for multiple locations/mobile app
 **Cons:** Highest cost, significantly more dev time to build, more complex to maintain, overkill for 1-3 rooms
@@ -118,14 +120,14 @@ General scheduling tools (Calendly, Acuity, Fresha, etc.) are built for salons a
 
 | Factor | Option 1 | Option 2 (REC) | Option 3 | Option 4 |
 |--------|----------|-----------------|----------|----------|
-| Fixed monthly | $0-8 | $44-55 | $73-75 | $91-104 |
+| Fixed monthly | $0-8 | $41-51 | $82-84 | $98-117 |
 | Per-booking fees | Yes (1.9%+$0.30) | None | None | None |
 | Design control | Full | Full | Limited | Full |
 | Owner edits content | No | Yes (CMS) | Yes (visual) | Yes (CMS) |
 | Performance/SEO | Excellent | Excellent | Good | Very Good |
 | Dev time to build | Low-Med | Medium | Low | High |
 | Booking platform | Xola | Resova | Bookeo | Resova |
-| All features included | Yes | Yes | Yes | Yes + extras |
+| Digital waivers | Included | Upgrade needed | $9/mo add-on | Upgrade needed |
 
 ---
 
@@ -133,9 +135,9 @@ General scheduling tools (Calendly, Acuity, Fresha, etc.) are built for salons a
 
 | Platform | Pricing | Waivers | Gift Cards | Group Booking | Escape Room Specific |
 |----------|---------|---------|------------|---------------|---------------------|
-| **Resova** | $44-65/mo flat | Built-in | Built-in | Yes | Yes (1,300+ clients) |
+| **Resova** | $40-135/mo flat (plan-dependent) | Premium plan only | Built-in | Yes | Yes (2,000+ locations) |
 | **Xola** | 1.9%+$0.30/booking | Built-in | Built-in | Yes + split-pay | Yes |
-| **Bookeo** | $39.95/mo flat | Built-in + kiosk + QR | Built-in | Yes | Partially |
+| **Bookeo** | $39.95/mo flat | $9+/mo add-on (kiosk + QR) | Built-in | Yes | Partially |
 | **FareHarbor** | Transaction-based | Limited | Limited | Yes | Partially |
 | **Checkfront** | 3% per reservation | Built-in | Built-in | Yes | Partially |
 
@@ -149,6 +151,6 @@ General scheduling tools (Calendly, Acuity, Fresha, etc.) are built for salons a
 2. **Full creative control** — Astro gives complete design freedom for the atmospheric escape room aesthetic
 3. **Owner independence** — CMS means client can update rooms, leaderboard, photos without calling you
 4. **Purpose-built booking** — Resova handles all the escape-room-specific complexity
-5. **$0 hosting** — entire fixed cost is just Resova's $44/mo
+5. **$0 hosting** — entire fixed cost is just Resova's $40-50/mo
 
 **Migration path:** Start with Option 1 (Xola, no CMS) if ultra-budget-conscious, then migrate to Option 2 when volume justifies it. The Astro site architecture is identical — just swap the booking widget and add CMS.

@@ -15,7 +15,8 @@ Escape room website project.
 - Client-side password gate (password in `PasswordGate.vue`, default: `lockandlogic2026`, stored in `localStorage` as `ll-docs-auth`)
 - Markdown files are **copied** from `../docs/` — run `npm run sync` (or `bash sync-docs.sh`) to update
 - Dev server: `npm run docs:dev` (serves at `http://localhost:5173/lockandlogic-docs/`)
-- Sidebar: Client-Facing group (6 docs) + Internal group (5 docs)
+- Sidebar: Client-Facing group (10 docs) + Internal group (6 docs)
+- `feature-estimator.md` lives only in `docs-site/docs/` (not synced from `../docs/`) because it uses a Vue component
 - GitHub Pages deployment via `.github/workflows/deploy.yml`
 
 ## Commands

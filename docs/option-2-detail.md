@@ -9,12 +9,12 @@
 | Website framework | Astro + Tailwind CSS | Free | Static site with full design control |
 | CMS | Decap CMS (open source, git-based) | $0 | Owner can edit rooms, leaderboard, content without developer |
 | Hosting | Vercel (free tier) | $0/mo | Fast global CDN, auto-deploys on git push |
-| Booking platform | Resova Lite | $44/mo | Booking, waivers, gift cards, room management |
+| Booking platform | Resova Lite | $40/mo (annual) or $50/mo (monthly) | Booking, gift cards, room management. Waivers require Premium ($108/mo annual). |
 | Contact form | Formspree (free tier) | $0 | Corporate inquiry + contact forms |
 | Mailing list | Mailchimp or equivalent (free tier) | $0 | Newsletter signup — client sets up account, we integrate the form |
 | Domain | Cloudflare/Namecheap | ~$12/yr | Custom domain |
 
-**Total fixed:** ~$45/mo + standard credit card processing (2.9% + $0.30)
+**Total fixed:** ~$41/mo (annual) or ~$51/mo (monthly) + standard credit card processing (2.9% + $0.30)
 
 ---
 

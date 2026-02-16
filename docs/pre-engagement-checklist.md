@@ -27,17 +27,20 @@ The estimate is not a legally binding agreement. Need a proper contract covering
 
 ---
 
-### 2. Verify Resova Pricing
-Our estimate quotes Resova Lite at $44/mo. Some sources show it at **$30/mo** (Lite) and **$60/mo** (Pro). Need to verify at [get.resova.com/pricing](https://get.resova.com/pricing/) and update our docs if wrong.
+### 2. ~~Verify Resova Pricing~~ — DONE (Feb 2026)
+Verified at [get.resova.com/pricing](https://get.resova.com/pricing/). See `bookeo-vs-resova.md` for full comparison.
 
-Also check the **Lite plan caps:**
+**Current Resova pricing (monthly / annual billing):**
+- Lite: $50/mo / $40/mo — 100 bookings, 2 team members
+- Pro: $90/mo / $72/mo — 300 bookings, 5 team members
+- Premium: $135/mo / $108/mo — 600 bookings, 10 team members, **waivers included**
+
+**Key finding:** Digital waivers are **Premium-only**. Lite and Pro do not include waivers. All docs have been updated.
+
+**Lite plan caps (still relevant):**
 - 100 bookings/month (3 rooms x 3 sessions/day = could exceed this quickly)
 - 2 team members
 - No in-person card processing (walk-in friction)
-
-**Action:** Verify pricing, update estimate if needed, add a note about when to upgrade to Pro.
-
-**Effort:** 15 minutes
 
 ---
 
@@ -131,7 +134,7 @@ Free tier is typically 50 submissions/month. If corporate inquiry + contact form
 | Priority | Action | Effort | When |
 |----------|--------|--------|------|
 | Critical | Write service contract | 2-4 hrs | Before sending estimate |
-| Critical | Verify Resova pricing | 15 min | Before sending estimate |
+| ~~Critical~~ | ~~Verify Resova pricing~~ | ~~15 min~~ | DONE — see `bookeo-vs-resova.md` |
 | Critical | Test Decap CMS auth on Vercel | 1-3 hrs | Before sending estimate |
 | Critical | Set up invoicing | 30-60 min | Before sending estimate |
 | Recommended | Resova plan limitations note | 15 min | Before scoping call |
