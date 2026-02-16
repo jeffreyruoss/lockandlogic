@@ -1,1 +1,86 @@
 @import "tailwindcss";
+
+/* ── Self-hosted fonts ─────────────────────────────── */
+
+@font-face {
+  font-family: "Barlow Condensed";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/barlow-condensed-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/barlow-condensed-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-variable.woff2") format("woff2");
+}
+
+/* ── Design tokens ─────────────────────────────────── */
+
+@theme {
+  --font-heading: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-navy-950: #0a0e1a;
+  --color-navy-900: #0f1629;
+  --color-navy-800: #1a2240;
+  --color-navy-700: #253059;
+
+  --color-gold-300: #e8c66a;
+  --color-gold-400: #d4a843;
+  --color-gold-500: #b8922e;
+
+  --color-steel-100: #e2e5ec;
+  --color-steel-200: #c8cdd8;
+  --color-steel-400: #8a93a8;
+
+  --color-teal-400: #2dd4a8;
+  --color-teal-500: #1aab87;
+}
+
+/* ── Base styles ───────────────────────────────────── */
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-navy-950);
+    color: var(--color-steel-200);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-steel-100);
+  }
+
+  ::selection {
+    background-color: var(--color-gold-400);
+    color: var(--color-navy-950);
+  }
+}
+
+/* ── Utilities ─────────────────────────────────────── */
+
+@utility text-gold-gradient {
+  background: linear-gradient(135deg, var(--color-gold-300), var(--color-gold-400), var(--color-gold-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

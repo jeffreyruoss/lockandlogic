@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+---
+
+<section class="relative flex min-h-screen items-center justify-center overflow-hidden">
+  <!-- CSS-only atmospheric background -->
+  <div
+    class="absolute inset-0 bg-navy-950"
+    style="background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(26,34,64,0.9) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(45,212,168,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 70%, rgba(212,168,67,0.05) 0%, transparent 60%),
+      #0a0e1a;"
+  >
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
+    <Image
+      src={logo}
+      alt="Lock & Logic"
+      width={360}
+      class="mx-auto mb-8 w-64 sm:w-80 lg:w-[360px]"
+    />
+
+    <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-teal-400">
+      Pottstown, PA &mdash; Opening May 2026
+    </p>
+
+    <h1 class="text-gold-gradient mb-6 font-heading text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl">
+      Unlock the Mystery
+    </h1>
+
+    <p class="mx-auto mb-10 max-w-2xl text-lg text-steel-200 sm:text-xl">
+      Immersive escape room experiences where every clue counts and every second matters.
+    </p>
+
+    <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+      <a
+        href="/book"
+        class="group relative inline-flex items-center rounded-lg bg-gold-400 px-8 py-3.5 text-base font-bold text-navy-950 transition-all hover:bg-gold-500"
+      >
+        <span class="absolute inset-0 rounded-lg bg-gold-400 opacity-30 blur-md transition-opacity group-hover:opacity-50"></span>
+        <span class="relative">Book Your Escape</span>
+      </a>
+      <a
+        href="/rooms"
+        class="inline-flex items-center gap-2 text-base font-medium text-steel-200 transition-colors hover:text-gold-300"
+      >
+        Explore Our Rooms
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+---
+
+<section class="py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <h2 class="text-gold-gradient mb-6 font-heading text-3xl font-bold sm:text-4xl">The Lock & Logic Story</h2>
+        <div class="space-y-4 text-steel-200">
+          <p>
+            Lock & Logic was born from a simple belief: the best adventures happen when you step away from your screen and into a story. We're building something different in Pottstown — escape rooms that feel like living, breathing worlds.
+          </p>
+          <p>
+            Every room is designed from the ground up with hand-crafted puzzles, atmospheric set design, and narratives that pull you in from the moment the door locks behind you. No padlock hunts, no flimsy props — just clever, immersive experiences.
+          </p>
+          <p>
+            Whether you're planning a date night, a birthday celebration, or a team outing, Lock & Logic is the destination for unforgettable shared moments.
+          </p>
+        </div>
+        <a
+          href="/about"
+          class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold-400 transition-colors hover:text-gold-300"
+        >
+          Learn More About Us
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="flex items-center justify-center">
+        <div class="relative">
+          <div class="absolute -inset-4 rounded-2xl bg-gradient-to-br from-gold-400/10 to-teal-400/10 blur-xl"></div>
+          <Image
+            src={logo}
+            alt="Lock & Logic logo"
+            width={320}
+            class="relative w-64 lg:w-80"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

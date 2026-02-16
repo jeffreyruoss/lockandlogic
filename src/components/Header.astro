@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Rooms', href: '/rooms' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-navy-700/50 bg-navy-950/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <a href="/" class="shrink-0">
+      <Image
+        src={logo}
+        alt="Lock & Logic"
+        height={44}
+        class="h-11 w-auto"
+      />
+    </a>
+
+    <nav aria-label="Main navigation" class="hidden items-center gap-1 md:flex">
+      {navLinks.map(({ label, href }) => (
+        <a
+          href={href}
+          class:list={[
+            'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+            currentPath === href
+              ? 'text-gold-400'
+              : 'text-steel-200 hover:text-gold-300',
+          ]}
+          aria-current={currentPath === href ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="/book"
+        class="ml-3 rounded-md bg-gold-400 px-5 py-2 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
+      >
+        Book Now
+      </a>
+    </nav>
+
+    <button
+      id="mobile-menu-btn"
+      type="button"
+      class="inline-flex items-center justify-center rounded-md p-2 text-steel-200 hover:text-gold-300 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-navy-700/50 md:hidden"
+    aria-label="Mobile navigation"
+  >
+    <div class="space-y-1 px-4 pb-4 pt-2">
+      {navLinks.map(({ label, href }) => (
+        <a
+          href={href}
+          class:list={[
+            'block rounded-md px-3 py-2 text-base font-medium transition-colors',
+            currentPath === href
+              ? 'text-gold-400'
+              : 'text-steel-200 hover:text-gold-300',
+          ]}
+          aria-current={currentPath === href ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="/book"
+        class="mt-2 block rounded-md bg-gold-400 px-3 py-2 text-center text-base font-bold text-navy-950 transition-colors hover:bg-gold-500"
+      >
+        Book Now
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const iconOpen = document.getElementById('icon-open')!;
+  const iconClose = document.getElementById('icon-close')!;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    menu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+  });
+</script>
