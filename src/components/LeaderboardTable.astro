@@ -21,10 +21,10 @@ const medalColors: Record<number, string> = {
     <table class="w-full text-left text-sm">
       <thead>
         <tr class="border-b border-navy-700/50 bg-navy-800">
-          <th class="px-4 py-3 font-semibold text-steel-400">Rank</th>
-          <th class="px-4 py-3 font-semibold text-steel-400">Team</th>
-          <th class="px-4 py-3 font-semibold text-steel-400">Time</th>
-          <th class="hidden px-4 py-3 font-semibold text-steel-400 sm:table-cell">Date</th>
+          <th scope="col" class="px-4 py-3 font-semibold text-steel-400">Rank</th>
+          <th scope="col" class="px-4 py-3 font-semibold text-steel-400">Team</th>
+          <th scope="col" class="px-4 py-3 font-semibold text-steel-400">Time</th>
+          <th scope="col" class="hidden px-4 py-3 font-semibold text-steel-400 sm:table-cell">Date</th>
         </tr>
       </thead>
       <tbody>
@@ -36,7 +36,8 @@ const medalColors: Record<number, string> = {
             <td class="px-4 py-3">
               {entry.rank <= 3 ? (
                 <span class={`font-bold ${medalColors[entry.rank]}`}>
-                  {entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : '🥉'}
+                  <span aria-hidden="true">{entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : '🥉'}</span>
+                  <span class="sr-only">Rank {entry.rank}</span>
                 </span>
               ) : (
                 <span class="text-steel-400">{entry.rank}</span>

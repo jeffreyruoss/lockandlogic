@@ -98,11 +98,28 @@ const navLinks = [
   const menu = document.getElementById('mobile-menu')!;
   const iconOpen = document.getElementById('icon-open')!;
   const iconClose = document.getElementById('icon-close')!;
-  btn.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    menu.classList.toggle('hidden');
-    iconOpen.classList.toggle('hidden');
-    iconClose.classList.toggle('hidden');
+
+  function toggleMenu(forceClose = false) {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    const shouldClose = forceClose || isOpen;
+    btn.setAttribute('aria-expanded', String(!shouldClose));
+    menu.classList.toggle('hidden', shouldClose);
+    iconOpen.classList.toggle('hidden', !shouldClose);
+    iconClose.classList.toggle('hidden', shouldClose);
+
+    if (!shouldClose) {
+      const firstLink = menu.querySelector('a');
+      firstLink?.focus();
+    } else {
+      btn.focus();
+    }
+  }
+
+  btn.addEventListener('click', () => toggleMenu());
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+      toggleMenu(true);
+    }
   });
 </script>

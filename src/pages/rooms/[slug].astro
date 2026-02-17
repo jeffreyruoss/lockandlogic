@@ -31,7 +31,7 @@ const stats = [
 ];
 ---
 
-<BaseLayout title={room.name} description={room.description}>
+<BaseLayout title={room.name} description={room.fullDescription.slice(0, 160)}>
   <!-- Room Hero -->
   <section class="relative overflow-hidden py-20 sm:py-28">
     <div
