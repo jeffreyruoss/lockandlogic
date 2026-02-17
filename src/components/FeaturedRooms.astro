@@ -1,57 +1,41 @@
 ---
 import RoomCard from './RoomCard.astro';
+import { rooms } from '../data/rooms';
 ---
 
-<section class="py-20">
+<section class="relative bg-navy-950 py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="mb-12 text-center">
-      <h2 class="text-gold-gradient font-heading text-3xl font-bold sm:text-4xl">Our Escape Rooms</h2>
-      <p class="mt-4 text-steel-400">Choose your challenge. Beat the clock. Escape.</p>
+    <div class="reveal mb-4 text-center">
+      <span class="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-teal-400 text-glow-teal">Choose Your Challenge</span>
+      <h2 class="text-gold-gradient text-glow-gold font-heading text-4xl font-bold sm:text-5xl">Our Escape Rooms</h2>
+      <p class="mt-4 text-lg text-steel-400">Three worlds. One hour. No second chances.</p>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <RoomCard
-        name="The Vault"
-        description="A daring bank heist gone wrong. Crack the safe, decode the alarms, and escape before time runs out."
-        difficulty="Intermediate"
-        players="2–8 players"
-        duration="60 min"
-        price="$30/person"
-        slug="the-vault"
-        gradientFrom="from-navy-700"
-        gradientTo="to-amber-900/30"
-      />
-      <RoomCard
-        name="Circuit Breaker"
-        description="A rogue AI has locked down the facility. Hack the systems, bypass security, and shut it down before it goes live."
-        difficulty="Advanced"
-        players="2–6 players"
-        duration="60 min"
-        price="$30/person"
-        slug="circuit-breaker"
-        gradientFrom="from-teal-500/20"
-        gradientTo="to-navy-900"
-      />
-      <RoomCard
-        name="The Forgotten Library"
-        description="An ancient library hides a dark secret. Solve the riddles of the occult collection before the door seals forever."
-        difficulty="Beginner"
-        players="2–8 players"
-        duration="60 min"
-        price="$30/person"
-        slug="the-forgotten-library"
-        gradientFrom="from-purple-900/30"
-        gradientTo="to-navy-900"
-      />
+    <div class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {rooms.map((room, i) => (
+        <div class="reveal" style={`animation-delay: ${(i + 1) * 0.1}s;`}>
+          <RoomCard
+            name={room.name}
+            description={room.description}
+            difficulty={room.difficulty}
+            players={room.players}
+            duration={room.duration}
+            price={room.price}
+            slug={room.slug}
+            gradientFrom={room.gradientFrom}
+            gradientTo={room.gradientTo}
+          />
+        </div>
+      ))}
     </div>
 
-    <div class="mt-10 text-center">
+    <div class="reveal mt-12 text-center">
       <a
         href="/rooms"
-        class="inline-flex items-center gap-2 text-sm font-medium text-gold-400 transition-colors hover:text-gold-300"
+        class="group inline-flex items-center gap-2 rounded-full border border-steel-400/20 px-6 py-3 text-sm font-medium text-steel-200 transition-all duration-300 hover:border-gold-400/40 hover:text-gold-300"
       >
         View All Rooms
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
         </svg>
       </a>

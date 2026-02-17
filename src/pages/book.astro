@@ -1,12 +1,54 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ResovaEmbed from '../components/ResovaEmbed.astro';
 ---
 
-<BaseLayout title="Book Now">
-  <section class="py-20">
-    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-      <h1 class="text-gold-gradient mb-4 font-heading text-4xl font-bold sm:text-5xl">Book Your Escape</h1>
-      <p class="text-steel-400">Online booking coming soon. We open in May 2026 — stay tuned!</p>
+<BaseLayout title="Book Your Escape" description="Book your escape room experience at Lock & Logic in Pottstown, PA. Choose your room and time slot online.">
+  <PageHero title="Book Your Escape" subtitle="Choose your room, pick your time, and get ready for an unforgettable experience." />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 text-center">
+        <p class="mx-auto max-w-xl text-steel-400">
+          Select your preferred room and time slot below. All bookings include a pre-game briefing and post-game debrief with your Game Master.
+        </p>
+      </div>
+
+      <ResovaEmbed type="booking" />
+
+      <!-- Booking Info Cards -->
+      <div class="mt-16 grid gap-6 sm:grid-cols-3">
+        <div class="rounded-xl border border-navy-700/50 bg-navy-900 p-6 text-center">
+          <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-navy-700 bg-navy-950">
+            <svg class="h-6 w-6 text-teal-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <h3 class="mb-2 font-heading text-lg font-bold text-steel-100">Arrive Early</h3>
+          <p class="text-sm text-steel-400">Please arrive 15 minutes before your scheduled time for check-in and your pre-game briefing.</p>
+        </div>
+
+        <div class="rounded-xl border border-navy-700/50 bg-navy-900 p-6 text-center">
+          <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-navy-700 bg-navy-950">
+            <svg class="h-6 w-6 text-teal-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128H9m6 0a5.972 5.972 0 0 0-.786-3.07M9 19.128v-.003c0-1.113.285-2.16.786-3.07m0 0a5.972 5.972 0 0 1 6.428 0M9.786 16.058A5.967 5.967 0 0 1 12 15c1.05 0 2.034.27 2.893.739M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+            </svg>
+          </div>
+          <h3 class="mb-2 font-heading text-lg font-bold text-steel-100">Group Size</h3>
+          <p class="text-sm text-steel-400">Our rooms accommodate 2–8 players. For larger groups or private bookings, check our Corporate & Groups page.</p>
+        </div>
+
+        <div class="rounded-xl border border-navy-700/50 bg-navy-900 p-6 text-center">
+          <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-navy-700 bg-navy-950">
+            <svg class="h-6 w-6 text-teal-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+            </svg>
+          </div>
+          <h3 class="mb-2 font-heading text-lg font-bold text-steel-100">Cancellation Policy</h3>
+          <p class="text-sm text-steel-400">Free cancellation up to 24 hours before your booking. Reschedules welcome anytime.</p>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

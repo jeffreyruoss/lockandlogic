@@ -1,0 +1,38 @@
+---
+interface Props {
+  type: 'booking' | 'gift-voucher' | 'waiver';
+  title?: string;
+}
+
+const { type, title } = Astro.props;
+
+const labels: Record<string, string> = {
+  booking: 'Booking Widget',
+  'gift-voucher': 'Gift Card Purchase',
+  waiver: 'Digital Waiver',
+};
+
+const label = title || labels[type];
+---
+
+<div class="mx-auto max-w-3xl">
+  <div class="overflow-hidden rounded-xl border border-navy-700/50 bg-navy-900">
+    <div class="border-b border-navy-700/50 px-6 py-4">
+      <p class="text-sm font-semibold text-steel-100">{label}</p>
+    </div>
+    <div class="flex min-h-[400px] flex-col items-center justify-center px-6 py-16 text-center">
+      <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-gold-400/20 bg-gold-400/5">
+        <svg class="h-8 w-8 text-gold-400 animate-pulse" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </div>
+      <p class="mb-2 font-heading text-lg font-bold text-steel-100">Resova {label}</p>
+      <p class="text-sm text-steel-400">
+        The {label.toLowerCase()} will load here once connected to your Resova account.
+      </p>
+      <div class="mt-6 rounded-md bg-navy-800 px-4 py-2 text-xs text-steel-400">
+        <code>resova-{type}-widget</code>
+      </div>
+    </div>
+  </div>
+</div>

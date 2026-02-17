@@ -1,0 +1,63 @@
+---
+import type { LeaderboardEntry } from '../data/leaderboard';
+
+interface Props {
+  roomName: string;
+  entries: LeaderboardEntry[];
+}
+
+const { roomName, entries } = Astro.props;
+
+const medalColors: Record<number, string> = {
+  1: 'text-yellow-400',
+  2: 'text-steel-200',
+  3: 'text-amber-600',
+};
+---
+
+<div>
+  <h3 class="mb-4 font-heading text-xl font-bold text-steel-100">{roomName}</h3>
+  <div class="overflow-hidden rounded-xl border border-navy-700/50">
+    <table class="w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-navy-700/50 bg-navy-800">
+          <th class="px-4 py-3 font-semibold text-steel-400">Rank</th>
+          <th class="px-4 py-3 font-semibold text-steel-400">Team</th>
+          <th class="px-4 py-3 font-semibold text-steel-400">Time</th>
+          <th class="hidden px-4 py-3 font-semibold text-steel-400 sm:table-cell">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries.map((entry) => (
+          <tr class:list={[
+            'border-b border-navy-700/30 transition-colors',
+            entry.rank <= 3 ? 'bg-navy-900' : 'bg-navy-950',
+          ]}>
+            <td class="px-4 py-3">
+              {entry.rank <= 3 ? (
+                <span class={`font-bold ${medalColors[entry.rank]}`}>
+                  {entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : '🥉'}
+                </span>
+              ) : (
+                <span class="text-steel-400">{entry.rank}</span>
+              )}
+            </td>
+            <td class:list={[
+              'px-4 py-3 font-medium',
+              entry.rank <= 3 ? 'text-steel-100' : 'text-steel-200',
+            ]}>
+              {entry.teamName}
+            </td>
+            <td class:list={[
+              'px-4 py-3 font-mono',
+              entry.rank <= 3 ? 'text-gold-400' : 'text-steel-400',
+            ]}>
+              {entry.time}
+            </td>
+            <td class="hidden px-4 py-3 text-steel-400 sm:table-cell">{entry.date}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>

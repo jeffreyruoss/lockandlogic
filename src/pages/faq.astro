@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqItem from '../components/FaqItem.astro';
+import { faqData } from '../data/faq';
+---
+
+<BaseLayout title="FAQ" description="Frequently asked questions about Lock & Logic escape rooms — what to expect, how to book, and everything in between.">
+  <PageHero title="Frequently Asked Questions" subtitle="Everything you need to know before your visit." />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="space-y-12">
+        {faqData.map((category) => (
+          <div>
+            <h2 class="mb-6 font-heading text-2xl font-bold text-steel-100">{category.category}</h2>
+            <div class="space-y-3">
+              {category.entries.map((entry) => (
+                <FaqItem question={entry.question} answer={entry.answer} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Still Have Questions? -->
+      <div class="mt-16 rounded-xl border border-navy-700/50 bg-navy-900 p-8 text-center">
+        <h2 class="mb-3 font-heading text-2xl font-bold text-steel-100">Still Have Questions?</h2>
+        <p class="mb-6 text-steel-400">We're happy to help. Reach out and we'll get back to you as soon as possible.</p>
+        <a
+          href="/contact"
+          class="inline-flex items-center rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -17,4 +17,30 @@ import LocationTeaser from '../components/LocationTeaser.astro';
   <AboutTeaser />
   <Newsletter />
   <LocationTeaser />
+
+  <script>
+    (() => {
+      if (CSS.supports('animation-timeline', 'view()')) return;
+      const els = document.querySelectorAll('.reveal');
+      if (els.length === 0) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            (e.target as HTMLElement).style.opacity = '1';
+            (e.target as HTMLElement).style.transform = 'translateY(0)';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach((el) => {
+        const e = el as HTMLElement;
+        e.style.opacity = '0';
+        e.style.transform = 'translateY(24px)';
+        e.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        const delay = e.style.animationDelay;
+        if (delay) e.style.transitionDelay = delay;
+        io.observe(e);
+      });
+    })();
+  </script>
 </BaseLayout>

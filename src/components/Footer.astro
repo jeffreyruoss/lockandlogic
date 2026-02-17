@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.webp';
 ---
 
 <footer class="border-t border-navy-700/50 bg-navy-800">
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-    <div class="grid gap-10 md:grid-cols-3">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
       <!-- Brand -->
       <div>
         <Image
@@ -14,31 +14,10 @@ import logo from '../assets/logo.png';
           height={36}
           class="mb-4 h-9 w-auto"
         />
-        <p class="text-sm text-steel-400">
+        <p class="mb-4 text-sm text-steel-400">
           Immersive escape room experiences in Pottstown, PA. Every clue counts. Every second matters.
         </p>
-      </div>
-
-      <!-- Navigation -->
-      <div>
-        <h3 class="mb-4 text-sm font-bold text-steel-100">Quick Links</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/" class="text-steel-400 transition-colors hover:text-gold-300">Home</a></li>
-          <li><a href="/about" class="text-steel-400 transition-colors hover:text-gold-300">About</a></li>
-          <li><a href="/rooms" class="text-steel-400 transition-colors hover:text-gold-300">Rooms</a></li>
-          <li><a href="/book" class="text-steel-400 transition-colors hover:text-gold-300">Book Now</a></li>
-          <li><a href="/contact" class="text-steel-400 transition-colors hover:text-gold-300">Contact</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact -->
-      <div>
-        <h3 class="mb-4 text-sm font-bold text-steel-100">Contact</h3>
-        <ul class="space-y-2 text-sm text-steel-400">
-          <li>Pottstown, PA</li>
-          <li class="font-semibold text-gold-400">Opening May 2026</li>
-        </ul>
-        <div class="mt-4 flex gap-4">
+        <div class="flex gap-4">
           <a href="#" aria-label="Facebook" class="text-steel-400 transition-colors hover:text-gold-300">
             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </a>
@@ -47,14 +26,47 @@ import logo from '../assets/logo.png';
           </a>
         </div>
       </div>
+
+      <!-- Explore -->
+      <div>
+        <h3 class="mb-4 text-sm font-bold text-steel-100">Explore</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/rooms" class="text-steel-400 transition-colors hover:text-gold-300">Rooms</a></li>
+          <li><a href="/leaderboard" class="text-steel-400 transition-colors hover:text-gold-300">Leaderboard</a></li>
+          <li><a href="/about" class="text-steel-400 transition-colors hover:text-gold-300">About</a></li>
+          <li><a href="/faq" class="text-steel-400 transition-colors hover:text-gold-300">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Book & Play -->
+      <div>
+        <h3 class="mb-4 text-sm font-bold text-steel-100">Book & Play</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/book" class="text-steel-400 transition-colors hover:text-gold-300">Book Now</a></li>
+          <li><a href="/gift-cards" class="text-steel-400 transition-colors hover:text-gold-300">Gift Cards</a></li>
+          <li><a href="/waivers" class="text-steel-400 transition-colors hover:text-gold-300">Waivers</a></li>
+          <li><a href="/groups" class="text-steel-400 transition-colors hover:text-gold-300">Corporate & Groups</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="mb-4 text-sm font-bold text-steel-100">Contact</h3>
+        <ul class="space-y-2 text-sm text-steel-400">
+          <li>Pottstown, PA</li>
+          <li><a href="tel:+10000000000" class="transition-colors hover:text-gold-300">(000) 000-0000</a></li>
+          <li><a href="mailto:info@lockandlogic.com" class="transition-colors hover:text-gold-300">info@lockandlogic.com</a></li>
+          <li class="pt-1 font-semibold text-gold-400">Opening May 2026</li>
+        </ul>
+      </div>
     </div>
 
     <!-- Bottom bar -->
     <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-navy-700/50 pt-6 text-xs text-steel-400 sm:flex-row">
       <p>&copy; 2026 Lock & Logic. All rights reserved.</p>
       <div class="flex gap-4">
-        <a href="#" class="transition-colors hover:text-gold-300">Privacy Policy</a>
-        <a href="#" class="transition-colors hover:text-gold-300">Terms of Service</a>
+        <a href="/privacy-policy" class="transition-colors hover:text-gold-300">Privacy Policy</a>
+        <a href="/terms-of-service" class="transition-colors hover:text-gold-300">Terms of Service</a>
       </div>
     </div>
   </div>

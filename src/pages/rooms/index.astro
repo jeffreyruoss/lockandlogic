@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import RoomCard from '../../components/RoomCard.astro';
+import { rooms } from '../../data/rooms';
+---
+
+<BaseLayout title="Our Escape Rooms" description="Explore our immersive escape rooms in Pottstown, PA. Three unique themes, three unforgettable challenges.">
+  <PageHero title="Our Escape Rooms" subtitle="Three rooms. Three stories. One goal: escape before time runs out." />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {rooms.map((room) => (
+          <RoomCard
+            name={room.name}
+            description={room.description}
+            difficulty={room.difficulty}
+            players={room.players}
+            duration={room.duration}
+            price={room.price}
+            slug={room.slug}
+            gradientFrom={room.gradientFrom}
+            gradientTo={room.gradientTo}
+          />
+        ))}
+      </div>
+
+      <div class="mt-16 rounded-xl border border-navy-700/50 bg-navy-900 p-8 text-center">
+        <h2 class="mb-3 font-heading text-2xl font-bold text-steel-100">Not Sure Which Room to Try?</h2>
+        <p class="mx-auto mb-6 max-w-xl text-steel-400">
+          If it's your first escape room, we recommend starting with The Forgotten Library — it's designed to be welcoming for beginners while still offering a satisfying challenge.
+        </p>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a
+            href="/book"
+            class="inline-flex items-center rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
+          >
+            Book Now
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 text-sm font-medium text-gold-400 transition-colors hover:text-gold-300"
+          >
+            Ask Us for a Recommendation
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

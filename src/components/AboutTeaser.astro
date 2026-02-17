@@ -1,14 +1,15 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.webp';
 ---
 
-<section class="py-20">
+<section class="relative py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div>
-        <h2 class="text-gold-gradient mb-6 font-heading text-3xl font-bold sm:text-4xl">The Lock & Logic Story</h2>
-        <div class="space-y-4 text-steel-200">
+    <div class="grid items-center gap-16 lg:grid-cols-2">
+      <div class="reveal">
+        <span class="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-teal-400 text-glow-teal">Our Story</span>
+        <h2 class="text-gold-gradient text-glow-gold mb-8 font-heading text-4xl font-bold sm:text-5xl">The Lock & Logic Story</h2>
+        <div class="space-y-5 text-steel-200 leading-relaxed">
           <p>
             Lock & Logic was born from a simple belief: the best adventures happen when you step away from your screen and into a story. We're building something different in Pottstown — escape rooms that feel like living, breathing worlds.
           </p>
@@ -21,23 +22,24 @@ import logo from '../assets/logo.png';
         </div>
         <a
           href="/about"
-          class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold-400 transition-colors hover:text-gold-300"
+          class="group mt-8 inline-flex items-center gap-2 rounded-full border border-gold-400/30 px-6 py-3 text-sm font-medium text-gold-400 transition-all duration-300 hover:border-gold-400 hover:bg-gold-400/5 hover:shadow-[0_0_15px_rgba(212,168,67,0.1)]"
         >
           Learn More About Us
-          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
           </svg>
         </a>
       </div>
 
-      <div class="flex items-center justify-center">
+      <div class="reveal flex items-center justify-center" style="animation-delay: 0.15s;">
         <div class="relative">
-          <div class="absolute -inset-4 rounded-2xl bg-gradient-to-br from-gold-400/10 to-teal-400/10 blur-xl"></div>
+          <div class="absolute -inset-8 rounded-3xl bg-gradient-to-br from-gold-400/[0.06] via-teal-400/[0.04] to-gold-400/[0.06] blur-2xl" aria-hidden="true"></div>
+          <div class="absolute -inset-4 rounded-2xl border border-white/[0.04]" aria-hidden="true"></div>
           <Image
             src={logo}
             alt="Lock & Logic logo"
-            width={320}
-            class="relative w-64 lg:w-80"
+            width={380}
+            class="relative w-72 drop-shadow-[0_0_40px_rgba(212,168,67,0.1)] lg:w-96"
           />
         </div>
       </div>

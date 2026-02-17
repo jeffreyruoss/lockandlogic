@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page Not Found">
+  <section class="flex min-h-[70vh] items-center justify-center py-20">
+    <div class="mx-auto max-w-lg px-4 text-center sm:px-6 lg:px-8">
+      <!-- Lock icon -->
+      <div class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border border-navy-700 bg-navy-900">
+        <svg class="h-12 w-12 text-gold-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+        </svg>
+      </div>
+
+      <p class="text-gold-gradient font-heading text-7xl font-bold sm:text-8xl">404</p>
+      <h1 class="mt-4 font-heading text-3xl font-bold text-steel-100">This Room Doesn't Exist</h1>
+      <p class="mt-4 text-steel-400">
+        Looks like you've picked a lock that leads nowhere. Even our best Game Masters can't find this page.
+      </p>
+
+      <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <a
+          href="/"
+          class="inline-flex items-center rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
+        >
+          Back to the Lobby
+        </a>
+        <a
+          href="/rooms"
+          class="inline-flex items-center gap-2 text-sm font-medium text-gold-400 transition-colors hover:text-gold-300"
+        >
+          Browse Our Rooms
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

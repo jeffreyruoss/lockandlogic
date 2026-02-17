@@ -32,10 +32,11 @@
   --font-heading: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  --color-navy-950: #0a0e1a;
-  --color-navy-900: #0f1629;
-  --color-navy-800: #1a2240;
-  --color-navy-700: #253059;
+  /* Navy scale — true blue base matching logo (#000d15) */
+  --color-navy-950: #030d19;
+  --color-navy-900: #091827;
+  --color-navy-800: #0f2035;
+  --color-navy-700: #1a3050;
 
   --color-gold-300: #e8c66a;
   --color-gold-400: #d4a843;
@@ -83,4 +84,63 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@utility text-glow-gold {
+  text-shadow:
+    0 0 7px rgba(212, 168, 67, 0.3),
+    0 0 20px rgba(212, 168, 67, 0.15),
+    0 0 40px rgba(212, 168, 67, 0.08);
+}
+
+@utility text-glow-teal {
+  text-shadow:
+    0 0 7px rgba(45, 212, 168, 0.3),
+    0 0 20px rgba(45, 212, 168, 0.15),
+    0 0 40px rgba(45, 212, 168, 0.08);
+}
+
+@utility card-elevated {
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.3),
+    0 4px 8px rgba(0,0,0,0.2),
+    0 12px 24px rgba(0,0,0,0.15),
+    0 24px 48px rgba(0,0,0,0.1);
+}
+
+@utility cta-glow {
+  box-shadow: 0 0 20px rgba(212, 168, 67, 0.25), 0 0 40px rgba(212, 168, 67, 0.1);
+}
+
+/* ── Keyframes ─────────────────────────────────────── */
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 168, 67, 0.2), 0 0 40px rgba(212, 168, 67, 0.08); }
+  50% { box-shadow: 0 0 30px rgba(212, 168, 67, 0.4), 0 0 60px rgba(212, 168, 67, 0.15); }
+}
+
+@keyframes bg-drift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes border-rotate {
+  to { --border-angle: 360deg; }
+}
+
+/* Scroll-driven reveal (Chrome 115+, Safari 18+) */
+@supports (animation-timeline: view()) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fade-in-up 0.6s ease both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
 }

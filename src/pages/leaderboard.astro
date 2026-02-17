@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import LeaderboardTable from '../components/LeaderboardTable.astro';
+import { leaderboardData } from '../data/leaderboard';
+---
+
+<BaseLayout title="Leaderboard" description="See the fastest escape room times at Lock & Logic. Can your team make the top 10?">
+  <PageHero title="Leaderboard" subtitle="The fastest teams. The best times. Is your name on the board?" />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <!-- Room Filter Tabs -->
+      <div class="mb-8 flex flex-wrap justify-center gap-2" id="leaderboard-tabs">
+        <button
+          class="tab-btn rounded-full px-4 py-2 text-sm font-medium transition-colors bg-gold-400 text-navy-950"
+          data-room="all"
+        >
+          All Rooms
+        </button>
+        {leaderboardData.map((room) => (
+          <button
+            class="tab-btn rounded-full px-4 py-2 text-sm font-medium transition-colors border border-navy-700 text-steel-400 hover:text-gold-300"
+            data-room={room.roomSlug}
+          >
+            {room.roomName}
+          </button>
+        ))}
+      </div>
+
+      <!-- Leaderboard Tables -->
+      <div class="space-y-12" id="leaderboard-content">
+        {leaderboardData.map((room) => (
+          <div class="leaderboard-section" data-room={room.roomSlug}>
+            <LeaderboardTable roomName={room.roomName} entries={room.entries} />
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 rounded-xl border border-gold-400/20 bg-navy-900 p-8 text-center">
+        <h2 class="mb-3 font-heading text-2xl font-bold text-steel-100">Think You Can Do Better?</h2>
+        <p class="mb-6 text-steel-400">Gather your team and take on the challenge. The leaderboard is waiting.</p>
+        <a
+          href="/book"
+          class="inline-flex items-center rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
+        >
+          Book Your Escape
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+  const sections = document.querySelectorAll<HTMLElement>('.leaderboard-section');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const room = tab.dataset.room;
+
+      // Update active tab styles
+      tabs.forEach((t) => {
+        t.classList.remove('bg-gold-400', 'text-navy-950');
+        t.classList.add('border', 'border-navy-700', 'text-steel-400', 'hover:text-gold-300');
+      });
+      tab.classList.add('bg-gold-400', 'text-navy-950');
+      tab.classList.remove('border', 'border-navy-700', 'text-steel-400', 'hover:text-gold-300');
+
+      // Show/hide sections
+      sections.forEach((section) => {
+        if (room === 'all' || section.dataset.room === room) {
+          section.style.display = '';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

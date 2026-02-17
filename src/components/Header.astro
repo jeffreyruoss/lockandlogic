@@ -1,13 +1,15 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.webp';
 
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
   { label: 'Rooms', href: '/rooms' },
+  { label: 'Leaderboard', href: '/leaderboard' },
+  { label: 'Groups', href: '/groups' },
+  { label: 'Gift Cards', href: '/gift-cards' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ];
 ---
@@ -29,11 +31,11 @@ const navLinks = [
           href={href}
           class:list={[
             'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-            currentPath === href
+            currentPath === href || currentPath.startsWith(href + '/')
               ? 'text-gold-400'
               : 'text-steel-200 hover:text-gold-300',
           ]}
-          aria-current={currentPath === href ? 'page' : undefined}
+          aria-current={currentPath === href || currentPath.startsWith(href + '/') ? 'page' : undefined}
         >
           {label}
         </a>
@@ -72,11 +74,11 @@ const navLinks = [
           href={href}
           class:list={[
             'block rounded-md px-3 py-2 text-base font-medium transition-colors',
-            currentPath === href
+            currentPath === href || currentPath.startsWith(href + '/')
               ? 'text-gold-400'
               : 'text-steel-200 hover:text-gold-300',
           ]}
-          aria-current={currentPath === href ? 'page' : undefined}
+          aria-current={currentPath === href || currentPath.startsWith(href + '/') ? 'page' : undefined}
         >
           {label}
         </a>
