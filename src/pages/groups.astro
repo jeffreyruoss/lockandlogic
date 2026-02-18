@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import InquiryForm from '../components/InquiryForm.astro';
+import { Image } from 'astro:assets';
+import teamCollaboration from '../assets/team-collaboration.webp';
 ---
 
 <BaseLayout title="Corporate & Group Events" description="Team building that actually works. Book private escape room experiences for corporate events, parties, and large groups.">
@@ -21,6 +23,12 @@ import InquiryForm from '../components/InquiryForm.astro';
               In 60 minutes, you'll see who leads, who listens, who thinks outside the box, and who keeps the group focused under pressure. It's the most fun your team will ever have while learning to work together better.
             </p>
           </div>
+          <Image
+            src={teamCollaboration}
+            alt="Corporate team collaborating together"
+            width={600}
+            class="mt-6 rounded-xl"
+          />
         </div>
         <div class="grid grid-cols-2 gap-4">
           {[

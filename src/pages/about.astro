@@ -3,6 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.webp';
+import alexMorgan from '../assets/team/alex-morgan.webp';
+import jordanChen from '../assets/team/jordan-chen.webp';
+import samRivera from '../assets/team/sam-rivera.webp';
+
+const teamImages: Record<string, ImageMetadata> = {
+  'Alex Morgan': alexMorgan,
+  'Jordan Chen': jordanChen,
+  'Sam Rivera': samRivera,
+};
 ---
 
 <BaseLayout title="About" description="Learn about Lock & Logic — Pottstown's newest escape room destination. Our story, our team, and what to expect.">
@@ -71,7 +80,17 @@ import logo from '../assets/logo.webp';
           },
         ].map((member) => (
           <div class="rounded-xl border border-navy-700/50 bg-navy-950 p-6 text-center">
-            <div class={`mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br ${member.gradient}`}></div>
+            {teamImages[member.name] ? (
+              <Image
+                src={teamImages[member.name]}
+                alt={member.name}
+                width={96}
+                height={96}
+                class="mx-auto mb-4 h-24 w-24 rounded-full object-cover"
+              />
+            ) : (
+              <div class={`mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br ${member.gradient}`}></div>
+            )}
             <h3 class="mb-1 font-heading text-xl font-bold text-steel-100">{member.name}</h3>
             <p class="mb-3 text-sm font-medium text-gold-400">{member.title}</p>
             <p class="text-sm text-steel-400">{member.bio}</p>

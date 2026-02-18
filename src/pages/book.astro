@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ResovaEmbed from '../components/ResovaEmbed.astro';
+import { Image } from 'astro:assets';
+import friendsCelebrating from '../assets/friends-celebrating.webp';
 ---
 
 <BaseLayout title="Book Your Escape" description="Book your escape room experience at Lock & Logic in Pottstown, PA. Choose your room and time slot online.">
@@ -16,6 +18,15 @@ import ResovaEmbed from '../components/ResovaEmbed.astro';
       </div>
 
       <ResovaEmbed type="booking" />
+
+      <div class="mt-16 overflow-hidden rounded-xl">
+        <Image
+          src={friendsCelebrating}
+          alt="Friends celebrating together after an exciting experience"
+          width={800}
+          class="h-64 w-full object-cover"
+        />
+      </div>
 
       <!-- Booking Info Cards -->
       <div class="mt-16 grid gap-6 sm:grid-cols-3">

@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ResovaEmbed from '../components/ResovaEmbed.astro';
+import { Image } from 'astro:assets';
+import giftGiving from '../assets/gift-giving.webp';
 ---
 
 <BaseLayout title="Gift Cards" description="Give the gift of adventure. Lock & Logic gift cards are perfect for birthdays, holidays, and any occasion.">
@@ -9,10 +11,20 @@ import ResovaEmbed from '../components/ResovaEmbed.astro';
 
   <section class="py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-12 mx-auto max-w-2xl text-center">
-        <p class="text-steel-200">
-          Looking for the perfect gift? Lock & Logic gift cards let your friends and family choose their own escape room adventure. Great for birthdays, holidays, date nights, or just because.
-        </p>
+      <div class="mb-12 grid items-center gap-8 lg:grid-cols-2">
+        <div>
+          <p class="text-steel-200">
+            Looking for the perfect gift? Lock & Logic gift cards let your friends and family choose their own escape room adventure. Great for birthdays, holidays, date nights, or just because.
+          </p>
+        </div>
+        <div class="overflow-hidden rounded-xl">
+          <Image
+            src={giftGiving}
+            alt="Beautifully wrapped gift boxes"
+            width={600}
+            class="w-full object-cover"
+          />
+        </div>
       </div>
 
       <ResovaEmbed type="gift-voucher" />
