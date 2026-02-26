@@ -14,7 +14,7 @@ Escape room website project.
 - Client-side password gate (password in `PasswordGate.vue`, default: `lockandlogic2026`, stored in `localStorage` as `ll-docs-auth`)
 - All markdown docs live directly in `docs-site/docs/` (single source of truth)
 - Dev server: `npm run docs:dev` (serves at `http://localhost:5173/lockandlogic-docs/`)
-- Sidebar: Client-Facing group (10 docs) + Internal group (6 docs)
+- Sidebar: 5 client-facing docs by default; admin IP sees all docs grouped by Client-Facing / Internal
 - `feature-estimator.md` uses a Vue component
 - GitHub Pages deployment via `.github/workflows/deploy.yml`
 
