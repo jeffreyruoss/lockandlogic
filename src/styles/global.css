@@ -119,12 +119,6 @@
   50% { box-shadow: 0 0 30px rgba(212, 168, 67, 0.4), 0 0 60px rgba(212, 168, 67, 0.15); }
 }
 
-@keyframes bg-drift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
@@ -199,9 +193,9 @@
 
 @keyframes candlelight {
   0%, 100% { opacity: 0.60; }
-  25%      { opacity: 0.58; }
-  50%      { opacity: 0.62; }
-  75%      { opacity: 0.57; }
+  25%      { opacity: 0.55; }
+  50%      { opacity: 0.65; }
+  75%      { opacity: 0.53; }
 }
 
 @property --border-angle {
@@ -222,7 +216,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .hero-entrance {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

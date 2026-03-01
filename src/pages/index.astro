@@ -21,6 +21,7 @@ import LocationTeaser from '../components/LocationTeaser.astro';
   <script>
     (() => {
       if (CSS.supports('animation-timeline', 'view()')) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const els = document.querySelectorAll('.reveal');
       if (els.length === 0) return;
       const io = new IntersectionObserver((entries) => {

@@ -3,19 +3,28 @@ import { Image } from 'astro:assets';
 import logo from '../assets/logo.webp';
 import heroBg from '../assets/hero-bg.webp';
 
+// Seeded PRNG for deterministic builds (simple LCG)
+function seededRandom(seed: number) {
+  return () => {
+    seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+    return (seed >>> 0) / 0xffffffff;
+  };
+}
+const rand = seededRandom(42);
+
 // Generate dust particles at build time (SSG — zero runtime JS)
 const particles = Array.from({ length: 14 }, () => ({
-  top: `${Math.random() * 100}%`,
-  left: `${Math.random() * 100}%`,
-  size: `${1 + Math.random() * 2}px`,
-  duration: `${8 + Math.random() * 10}s`,
-  delay: `${Math.random() * 10}s`,
+  top: `${5 + rand() * 90}%`,
+  left: `${5 + rand() * 90}%`,
+  size: `${1 + rand() * 2}px`,
+  duration: `${8 + rand() * 10}s`,
+  delay: `${Math.round(rand() * 10)}s`,
 }));
 ---
 
-<section class="relative flex min-h-[600px] h-[calc(100dvh-3.5rem)] max-h-[1100px] items-center justify-center overflow-hidden">
+<section aria-label="Hero" class="relative flex min-h-[600px] h-[calc(100dvh-3.5rem)] max-h-[1100px] items-center justify-center overflow-hidden">
   <!-- 1. Background image with Ken Burns (inside parallax wrapper) -->
-  <div data-hero-bg class="absolute inset-0">
+  <div data-hero-bg class="absolute inset-0 z-[1] will-change-transform" aria-hidden="true">
     <Image
       src={heroBg}
       alt=""
@@ -28,26 +37,26 @@ const particles = Array.from({ length: 14 }, () => ({
 
   <!-- 2. Dark overlay with candlelight flicker -->
   <div
-    class="absolute inset-0 bg-navy-950"
+    class="absolute inset-0 z-[2] bg-navy-950"
     style="animation: candlelight 4s ease-in-out infinite;"
     aria-hidden="true"
   ></div>
 
   <!-- 3. Subtle grid pattern overlay -->
   <div
-    class="absolute inset-0 opacity-[0.03]"
+    class="absolute inset-0 z-[3] opacity-[0.03]"
     style="background-image: linear-gradient(rgba(200,205,216,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(200,205,216,0.3) 1px, transparent 1px); background-size: 60px 60px;"
     aria-hidden="true"
   ></div>
 
   <!-- 4. Fog layers -->
   <div
-    class="absolute inset-0 w-[150%] -left-[25%] pointer-events-none"
+    class="absolute top-0 right-0 bottom-0 z-[4] w-[150%] -left-[25%] pointer-events-none"
     style="background: radial-gradient(ellipse at 30% 50%, rgba(200,205,216,0.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 40%, rgba(200,205,216,0.06) 0%, transparent 55%); animation: fog-drift-1 20s ease-in-out infinite;"
     aria-hidden="true"
   ></div>
   <div
-    class="absolute inset-0 w-[150%] -left-[25%] pointer-events-none"
+    class="absolute top-0 right-0 bottom-0 z-[4] w-[150%] -left-[25%] pointer-events-none"
     style="background: radial-gradient(ellipse at 60% 60%, rgba(200,205,216,0.1) 0%, transparent 50%), radial-gradient(ellipse at 25% 30%, rgba(200,205,216,0.07) 0%, transparent 60%); animation: fog-drift-2 27s ease-in-out infinite;"
     aria-hidden="true"
   ></div>
@@ -80,8 +89,8 @@ const particles = Array.from({ length: 14 }, () => ({
   <div class="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
     <!-- Logo with glow — slides from top -->
     <div
-      class="relative mx-auto mb-[clamp(1rem,2vh,2.5rem)] w-[clamp(19.5rem,36vh,31rem)]"
-      style="opacity: 0; animation: slide-in-top 0.8s ease-out 0.1s both;"
+      class="hero-entrance relative mx-auto mb-[clamp(1rem,2vh,2.5rem)] w-[clamp(19.5rem,36vh,31rem)]"
+      style="animation: slide-in-top 0.8s ease-out 0.1s both;"
     >
       <div class="absolute inset-0 scale-110 rounded-full bg-gold-400/[0.06] blur-3xl" aria-hidden="true"></div>
       <Image
@@ -94,32 +103,32 @@ const particles = Array.from({ length: 14 }, () => ({
 
     <!-- Subtitle — slides from left -->
     <p
-      class="mb-[clamp(0.5rem,1vh,1.25rem)] text-sm font-semibold uppercase tracking-[0.25em] text-teal-400 text-glow-teal"
-      style="opacity: 0; animation: slide-in-left 0.7s ease-out 0.3s both;"
+      class="hero-entrance mb-[clamp(0.5rem,1vh,1.25rem)] text-sm font-semibold uppercase tracking-[0.25em] text-teal-400 text-glow-teal"
+      style="animation: slide-in-left 0.7s ease-out 0.3s both;"
     >
       Pottstown, PA &mdash; Opening May 2026
     </p>
 
     <!-- H1 — slides from right, then flashes -->
     <h1
-      class="text-gold-gradient mb-[clamp(0.75rem,1.5vh,1.5rem)] font-heading text-[clamp(3.25rem,8vh,8rem)] font-bold leading-tight"
-      style="opacity: 0; animation: slide-in-right 0.7s ease-out 0.5s both, title-flash 1s ease-out 1.6s both;"
+      class="hero-entrance text-gold-gradient mb-[clamp(0.75rem,1.5vh,1.5rem)] font-heading text-[clamp(3.25rem,8vh,8rem)] font-bold leading-tight"
+      style="animation: slide-in-right 0.7s ease-out 0.5s both, title-flash 1s ease-out 1.6s both;"
     >
       Unlock the Mystery
     </h1>
 
     <!-- Description — slides from left -->
     <p
-      class="mx-auto mb-[clamp(1.25rem,2.5vh,3rem)] max-w-2xl text-lg leading-relaxed text-steel-200 sm:text-xl"
-      style="opacity: 0; animation: slide-in-left 0.7s ease-out 0.7s both;"
+      class="hero-entrance mx-auto mb-[clamp(1.25rem,2.5vh,3rem)] max-w-2xl text-lg leading-relaxed text-steel-200 sm:text-xl"
+      style="animation: slide-in-left 0.7s ease-out 0.7s both;"
     >
       Immersive escape room experiences where every clue counts and every second matters.
     </p>
 
     <!-- Buttons — slide from bottom -->
     <div
-      class="flex flex-col items-center gap-5 sm:flex-row sm:justify-center"
-      style="opacity: 0; animation: slide-in-bottom 0.7s ease-out 0.9s both;"
+      class="hero-entrance flex flex-col items-center gap-5 sm:flex-row sm:justify-center"
+      style="animation: slide-in-bottom 0.7s ease-out 0.9s both;"
     >
       <a
         href="/book"
@@ -133,7 +142,7 @@ const particles = Array.from({ length: 14 }, () => ({
         class="group inline-flex items-center gap-2 rounded-xl border border-steel-400/20 px-8 py-4 text-base font-medium text-steel-200 backdrop-blur-sm transition-all duration-300 hover:border-gold-400/40 hover:text-gold-300"
       >
         Explore Our Rooms
-        <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
         </svg>
       </a>
@@ -144,10 +153,22 @@ const particles = Array.from({ length: 14 }, () => ({
 <!-- 9. Parallax scrolling -->
 <script>
   const hero = document.querySelector<HTMLElement>('[data-hero-bg]');
-  if (hero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (hero) {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let rafId: number | null = null;
+    let isVisible = true;
+
+    const io = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { rootMargin: '100px' });
+    io.observe(hero);
+
     window.addEventListener('scroll', () => {
-      requestAnimationFrame(() => {
-        hero.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+      if (mq.matches || !isVisible) return;
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        hero.style.transform = `translateY(${window.scrollY * -0.3}px)`;
+        rafId = null;
       });
     }, { passive: true });
   }
