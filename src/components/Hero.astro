@@ -2,31 +2,87 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.webp';
 import heroBg from '../assets/hero-bg.webp';
+
+// Generate dust particles at build time (SSG — zero runtime JS)
+const particles = Array.from({ length: 14 }, () => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  size: `${1 + Math.random() * 2}px`,
+  duration: `${8 + Math.random() * 10}s`,
+  delay: `${Math.random() * 10}s`,
+}));
 ---
 
 <section class="relative flex min-h-[600px] h-[calc(100dvh-3.5rem)] max-h-[1100px] items-center justify-center overflow-hidden">
-  <!-- Background image -->
-  <Image
-    src={heroBg}
-    alt=""
-    widths={[768, 1280, 1920]}
-    sizes="100vw"
-    class="absolute inset-0 h-full w-full object-cover"
-    loading="eager"
-  />
-  <!-- Dark overlay for text readability -->
-  <div class="absolute inset-0 bg-navy-950/60"></div>
+  <!-- 1. Background image with Ken Burns (inside parallax wrapper) -->
+  <div data-hero-bg class="absolute inset-0">
+    <Image
+      src={heroBg}
+      alt=""
+      widths={[768, 1280, 1920]}
+      sizes="100vw"
+      class="absolute inset-0 h-full w-full object-cover animate-[ken-burns_28s_ease-in-out_infinite]"
+      loading="eager"
+    />
+  </div>
 
-  <!-- Subtle grid pattern overlay -->
+  <!-- 2. Dark overlay with candlelight flicker -->
+  <div
+    class="absolute inset-0 bg-navy-950"
+    style="animation: candlelight 4s ease-in-out infinite;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- 3. Subtle grid pattern overlay -->
   <div
     class="absolute inset-0 opacity-[0.03]"
     style="background-image: linear-gradient(rgba(200,205,216,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(200,205,216,0.3) 1px, transparent 1px); background-size: 60px 60px;"
     aria-hidden="true"
   ></div>
 
+  <!-- 4. Fog layers -->
+  <div
+    class="absolute inset-0 w-[150%] -left-[25%] pointer-events-none"
+    style="background: radial-gradient(ellipse at 30% 50%, rgba(200,205,216,0.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 40%, rgba(200,205,216,0.06) 0%, transparent 55%); animation: fog-drift-1 20s ease-in-out infinite;"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="absolute inset-0 w-[150%] -left-[25%] pointer-events-none"
+    style="background: radial-gradient(ellipse at 60% 60%, rgba(200,205,216,0.1) 0%, transparent 50%), radial-gradient(ellipse at 25% 30%, rgba(200,205,216,0.07) 0%, transparent 60%); animation: fog-drift-2 27s ease-in-out infinite;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- 5. Vignette -->
+  <div
+    class="absolute inset-0 z-[5] pointer-events-none"
+    style="background: radial-gradient(ellipse at center, transparent 50%, rgba(3,13,25,0.6) 100%);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- 6. Dust particles -->
+  <div class="absolute inset-0 z-[6] pointer-events-none" aria-hidden="true">
+    {particles.map((p) => (
+      <span
+        class="absolute rounded-full bg-gold-400"
+        style={`top:${p.top};left:${p.left};width:${p.size};height:${p.size};animation:dust-float ${p.duration} ease-in-out ${p.delay} infinite;`}
+      />
+    ))}
+  </div>
+
+  <!-- 7. Lightning flash overlay -->
+  <div
+    class="absolute inset-0 z-[7] bg-white pointer-events-none"
+    style="animation: lightning 10s ease-in-out infinite;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- 8. Content with staggered entrance animations -->
   <div class="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-    <!-- Logo with glow -->
-    <div class="relative mx-auto mb-[clamp(1rem,2vh,2.5rem)] w-[clamp(19.5rem,36vh,31rem)]">
+    <!-- Logo with glow — slides from top -->
+    <div
+      class="relative mx-auto mb-[clamp(1rem,2vh,2.5rem)] w-[clamp(19.5rem,36vh,31rem)]"
+      style="opacity: 0; animation: slide-in-top 0.8s ease-out 0.1s both;"
+    >
       <div class="absolute inset-0 scale-110 rounded-full bg-gold-400/[0.06] blur-3xl" aria-hidden="true"></div>
       <Image
         src={logo}
@@ -36,23 +92,38 @@ import heroBg from '../assets/hero-bg.webp';
       />
     </div>
 
-    <p class="mb-[clamp(0.5rem,1vh,1.25rem)] text-sm font-semibold uppercase tracking-[0.25em] text-teal-400 text-glow-teal">
+    <!-- Subtitle — slides from left -->
+    <p
+      class="mb-[clamp(0.5rem,1vh,1.25rem)] text-sm font-semibold uppercase tracking-[0.25em] text-teal-400 text-glow-teal"
+      style="opacity: 0; animation: slide-in-left 0.7s ease-out 0.3s both;"
+    >
       Pottstown, PA &mdash; Opening May 2026
     </p>
 
-    <h1 class="text-gold-gradient text-glow-gold mb-[clamp(0.75rem,1.5vh,1.5rem)] font-heading text-[clamp(3.25rem,8vh,8rem)] font-bold leading-tight">
+    <!-- H1 — slides from right, then flashes -->
+    <h1
+      class="text-gold-gradient mb-[clamp(0.75rem,1.5vh,1.5rem)] font-heading text-[clamp(3.25rem,8vh,8rem)] font-bold leading-tight"
+      style="opacity: 0; animation: slide-in-right 0.7s ease-out 0.5s both, title-flash 1s ease-out 1.6s both;"
+    >
       Unlock the Mystery
     </h1>
 
-    <p class="mx-auto mb-[clamp(1.25rem,2.5vh,3rem)] max-w-2xl text-lg leading-relaxed text-steel-200 sm:text-xl">
+    <!-- Description — slides from left -->
+    <p
+      class="mx-auto mb-[clamp(1.25rem,2.5vh,3rem)] max-w-2xl text-lg leading-relaxed text-steel-200 sm:text-xl"
+      style="opacity: 0; animation: slide-in-left 0.7s ease-out 0.7s both;"
+    >
       Immersive escape room experiences where every clue counts and every second matters.
     </p>
 
-    <div class="flex flex-col items-center gap-5 sm:flex-row sm:justify-center">
+    <!-- Buttons — slide from bottom -->
+    <div
+      class="flex flex-col items-center gap-5 sm:flex-row sm:justify-center"
+      style="opacity: 0; animation: slide-in-bottom 0.7s ease-out 0.9s both;"
+    >
       <a
         href="/book"
-        class="group relative overflow-hidden rounded-xl bg-gold-400 px-10 py-4 text-base font-bold text-navy-950 transition-all duration-300 hover:bg-gold-500 hover:scale-105"
-        class="animate-[glow-pulse_3s_ease-in-out_infinite]"
+        class="group relative overflow-hidden rounded-xl bg-gold-400 px-10 py-4 text-base font-bold text-navy-950 transition-all duration-300 hover:bg-gold-500 hover:scale-105 animate-[glow-pulse_3s_ease-in-out_infinite]"
       >
         <span class="relative z-10">Book Your Escape</span>
       </a>
@@ -69,3 +140,15 @@ import heroBg from '../assets/hero-bg.webp';
     </div>
   </div>
 </section>
+
+<!-- 9. Parallax scrolling -->
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-hero-bg]');
+  if (hero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(() => {
+        hero.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+      });
+    }, { passive: true });
+  }
+</script>

@@ -134,6 +134,76 @@
   to { --border-angle: 360deg; }
 }
 
+/* ── Hero visual effects ──────────────────────────── */
+
+@keyframes ken-burns {
+  0%   { transform: scale(1.0) translate(0, 0); }
+  50%  { transform: scale(1.08) translate(-1.5%, -1%); }
+  100% { transform: scale(1.0) translate(0, 0); }
+}
+
+@keyframes fog-drift-1 {
+  0%   { transform: translateX(-15%); }
+  50%  { transform: translateX(15%); }
+  100% { transform: translateX(-15%); }
+}
+
+@keyframes fog-drift-2 {
+  0%   { transform: translateX(10%); }
+  50%  { transform: translateX(-20%); }
+  100% { transform: translateX(10%); }
+}
+
+@keyframes dust-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10%      { opacity: 0.6; }
+  90%      { opacity: 0.6; }
+  50%      { transform: translateY(-80px) translateX(20px); }
+}
+
+@keyframes slide-in-top {
+  from { opacity: 0; transform: translateY(-40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-bottom {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes title-flash {
+  0%   { text-shadow: 0 0 7px rgba(212,168,67,0.3), 0 0 20px rgba(212,168,67,0.15); }
+  15%  { text-shadow: 0 0 30px rgba(212,168,67,0.9), 0 0 60px rgba(212,168,67,0.6), 0 0 100px rgba(212,168,67,0.3); }
+  100% { text-shadow: 0 0 7px rgba(212,168,67,0.3), 0 0 20px rgba(212,168,67,0.15), 0 0 40px rgba(212,168,67,0.08); }
+}
+
+@keyframes lightning {
+  0%, 100% { opacity: 0; }
+  83%    { opacity: 0; }
+  84%    { opacity: 0.15; }
+  84.5%  { opacity: 0; }
+  85.5%  { opacity: 0; }
+  86%    { opacity: 0.25; }
+  87%    { opacity: 0; }
+}
+
+@keyframes candlelight {
+  0%, 100% { opacity: 0.60; }
+  25%      { opacity: 0.58; }
+  50%      { opacity: 0.62; }
+  75%      { opacity: 0.57; }
+}
+
 @property --border-angle {
   syntax: "<angle>";
   initial-value: 0deg;
