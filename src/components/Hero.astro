@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import logo from '../assets/logo.webp';
 import heroBg from '../assets/hero-bg.webp';
 import mistSrc from '../assets/mist.webp';
+import { baseUrl } from '../utils/url';
 
 // ── Hero Effect Configuration ─────────────────────────
 // Adjust these values to tune the hero visual effects.
@@ -240,14 +241,14 @@ const cssVars = [
       style={`animation: slide-in-bottom ${fx.entrance.buttons.duration}s ease-out ${fx.entrance.buttons.delay}s both;`}
     >
       <a
-        href="/book"
+        href={baseUrl('/book')}
         class={`group relative overflow-hidden rounded-xl bg-gold-400 px-10 py-4 text-base font-bold text-navy-950 transition-all duration-300 hover:bg-gold-500 hover:scale-105 animate-[cta-pulse_${fx.ctaPulse.duration}_ease-in-out_infinite]`}
       >
         <span class="relative z-10">Book Your Escape</span>
       </a>
 
       <a
-        href="/rooms"
+        href={baseUrl('/rooms')}
         class="group inline-flex items-center gap-2 rounded-xl bg-teal-500 px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:bg-teal-400 hover:scale-105"
       >
         Explore Our Rooms

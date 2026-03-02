@@ -1,28 +1,31 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo.webp';
+import icon from '../assets/icon.webp';
+import { baseUrl } from '../utils/url';
 
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { label: 'Rooms', href: '/rooms' },
-  { label: 'Leaderboard', href: '/leaderboard' },
-  { label: 'Groups', href: '/groups' },
-  { label: 'Gift Cards', href: '/gift-cards' },
-  { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Rooms', href: baseUrl('/rooms') },
+  { label: 'Leaderboard', href: baseUrl('/leaderboard') },
+  { label: 'Groups', href: baseUrl('/groups') },
+  { label: 'Gift Cards', href: baseUrl('/gift-cards') },
+  { label: 'FAQ', href: baseUrl('/faq') },
+  { label: 'Contact', href: baseUrl('/contact') },
 ];
 ---
 
 <header class="sticky top-0 z-50 border-b border-navy-700/50 bg-navy-950/80 backdrop-blur-md">
   <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-    <a href="/" class="shrink-0">
+    <a href={baseUrl('/')} class="flex shrink-0 items-center gap-2">
       <Image
-        src={logo}
-        alt="Lock & Logic"
-        height={44}
-        class="h-11 w-auto"
+        src={icon}
+        alt=""
+        height={80}
+        quality={100}
+        class="h-10 w-auto"
       />
+      <span class="font-heading text-lg uppercase tracking-wider text-white">Lock <span class="text-gold-400">&</span> Logic</span>
     </a>
 
     <nav aria-label="Main navigation" class="hidden items-center gap-1 md:flex">
@@ -41,7 +44,7 @@ const navLinks = [
         </a>
       ))}
       <a
-        href="/book"
+        href={baseUrl('/book')}
         class="ml-3 rounded-md bg-gold-400 px-5 py-2 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
       >
         Book Now
@@ -84,7 +87,7 @@ const navLinks = [
         </a>
       ))}
       <a
-        href="/book"
+        href={baseUrl('/book')}
         class="mt-2 block rounded-md bg-gold-400 px-3 py-2 text-center text-base font-bold text-navy-950 transition-colors hover:bg-gold-500"
       >
         Book Now

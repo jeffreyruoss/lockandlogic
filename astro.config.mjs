@@ -5,7 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://lockandlogic.com',
+  site: 'https://jeffreyruoss.github.io',
+  base: '/lockandlogic/',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

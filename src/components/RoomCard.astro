@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import { baseUrl } from '../utils/url';
+
 interface Props {
   name: string;
   description: string;
@@ -7,6 +10,7 @@ interface Props {
   duration: string;
   price: string;
   slug: string;
+  image?: ImageMetadata;
   gradientFrom?: string;
   gradientTo?: string;
 }
@@ -19,6 +23,7 @@ const {
   duration,
   price,
   slug,
+  image,
   gradientFrom = 'from-navy-700',
   gradientTo = 'to-navy-900',
 } = Astro.props;
@@ -33,21 +38,22 @@ const ds = difficultyStyles[difficulty];
 ---
 
 <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-navy-900/60 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/[0.12] hover:card-elevated">
-  <!-- Gradient header -->
+  <!-- Image header -->
   <div class="relative h-52 overflow-hidden">
-    <div class={`absolute inset-0 bg-gradient-to-br ${gradientFrom} ${gradientTo}`}></div>
-    <!-- Decorative circuit lines -->
-    <svg class="absolute inset-0 h-full w-full opacity-[0.04]" aria-hidden="true">
-      <line x1="0" y1="30%" x2="100%" y2="30%" stroke="currentColor" stroke-width="1" class="text-steel-200" />
-      <line x1="0" y1="60%" x2="100%" y2="60%" stroke="currentColor" stroke-width="1" class="text-steel-200" />
-      <line x1="30%" y1="0" x2="30%" y2="100%" stroke="currentColor" stroke-width="1" class="text-steel-200" />
-      <line x1="70%" y1="0" x2="70%" y2="100%" stroke="currentColor" stroke-width="1" class="text-steel-200" />
-      <circle cx="30%" cy="30%" r="4" fill="currentColor" class="text-teal-400" opacity="0.3" />
-      <circle cx="70%" cy="60%" r="4" fill="currentColor" class="text-gold-400" opacity="0.3" />
-    </svg>
-    <div class="absolute inset-0 bg-gradient-to-t from-navy-900/90 via-transparent to-transparent"></div>
+    {image ? (
+      <Image
+        src={image}
+        alt={name}
+        widths={[400, 600]}
+        sizes="(max-width: 768px) 100vw, 400px"
+        class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    ) : (
+      <div class={`absolute inset-0 bg-gradient-to-br ${gradientFrom} ${gradientTo}`}></div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-navy-900/20"></div>
 
-    <span class={`absolute left-4 top-4 rounded-full ${ds.bg} ${ds.glow} px-3 py-1 text-xs font-bold ${ds.text}`}>
+    <span class={`absolute left-4 top-4 rounded-full ${ds.bg} ${ds.glow} px-3 py-1 text-xs font-bold ${ds.text} backdrop-blur-sm`}>
       {difficulty}
     </span>
 
@@ -76,7 +82,7 @@ const ds = difficultyStyles[difficulty];
     </div>
 
     <a
-      href={`/rooms/${slug}`}
+      href={baseUrl(`/rooms/${slug}`)}
       class="group/btn relative inline-flex items-center justify-center overflow-hidden rounded-xl border border-gold-400/30 bg-gold-400/5 px-5 py-2.5 text-sm font-semibold text-gold-400 transition-all duration-300 hover:border-gold-400 hover:bg-gold-400 hover:text-navy-950 hover:shadow-[0_0_20px_rgba(212,168,67,0.2)]"
     >
       View Details

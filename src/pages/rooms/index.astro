@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import RoomCard from '../../components/RoomCard.astro';
 import { rooms } from '../../data/rooms';
+import { baseUrl } from '../../utils/url';
 ---
 
 <BaseLayout title="Our Escape Rooms" description="Explore our immersive escape rooms in Pottstown, PA. Three unique themes, three unforgettable challenges.">
@@ -20,6 +21,7 @@ import { rooms } from '../../data/rooms';
             duration={room.duration}
             price={room.price}
             slug={room.slug}
+            image={room.image}
             gradientFrom={room.gradientFrom}
             gradientTo={room.gradientTo}
           />
@@ -33,13 +35,13 @@ import { rooms } from '../../data/rooms';
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a
-            href="/book"
+            href={baseUrl('/book')}
             class="inline-flex items-center rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
           >
             Book Now
           </a>
           <a
-            href="/contact"
+            href={baseUrl('/contact')}
             class="inline-flex items-center gap-2 text-sm font-medium text-gold-400 transition-colors hover:text-gold-300"
           >
             Ask Us for a Recommendation

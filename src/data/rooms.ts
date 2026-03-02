@@ -1,3 +1,7 @@
+import vaultImage from '../assets/rooms/room-the-vault.webp';
+import circuitBreakerImage from '../assets/rooms/room-circuit-breaker.webp';
+import libraryImage from '../assets/rooms/room-forgotten-library.webp';
+
 export interface Room {
   name: string;
   slug: string;
@@ -9,6 +13,8 @@ export interface Room {
   duration: string;
   price: string;
   highlights: string[];
+  image: ImageMetadata;
+  bookeoProductId?: string;
   gradientFrom: string;
   gradientTo: string;
 }
@@ -17,6 +23,7 @@ export const rooms: Room[] = [
   {
     name: 'The Vault',
     slug: 'the-vault',
+    image: vaultImage,
     description:
       'A daring bank heist gone wrong. Crack the safe, decode the alarms, and escape before time runs out.',
     fullDescription:
@@ -38,6 +45,7 @@ export const rooms: Room[] = [
   {
     name: 'Circuit Breaker',
     slug: 'circuit-breaker',
+    image: circuitBreakerImage,
     description:
       'A rogue AI has locked down the facility. Hack the systems, bypass security, and shut it down before it goes live.',
     fullDescription:
@@ -59,6 +67,7 @@ export const rooms: Room[] = [
   {
     name: 'The Forgotten Library',
     slug: 'the-forgotten-library',
+    image: libraryImage,
     description:
       'An ancient library hides a dark secret. Solve the riddles of the occult collection before the door seals forever.',
     fullDescription:

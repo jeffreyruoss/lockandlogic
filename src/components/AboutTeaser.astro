@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo.webp';
+import founders from '../assets/founders.webp';
+import { baseUrl } from '../utils/url';
 ---
 
 <section class="relative py-24">
@@ -21,7 +22,7 @@ import logo from '../assets/logo.webp';
           </p>
         </div>
         <a
-          href="/about"
+          href={baseUrl('/about')}
           class="group mt-8 inline-flex items-center gap-2 rounded-full border border-gold-400/30 px-6 py-3 text-sm font-medium text-gold-400 transition-all duration-300 hover:border-gold-400 hover:bg-gold-400/5 hover:shadow-[0_0_15px_rgba(212,168,67,0.1)]"
         >
           Learn More About Us
@@ -36,10 +37,10 @@ import logo from '../assets/logo.webp';
           <div class="absolute -inset-8 rounded-3xl bg-gradient-to-br from-gold-400/[0.06] via-teal-400/[0.04] to-gold-400/[0.06] blur-2xl" aria-hidden="true"></div>
           <div class="absolute -inset-4 rounded-2xl border border-white/[0.04]" aria-hidden="true"></div>
           <Image
-            src={logo}
-            alt="Lock & Logic logo"
-            width={380}
-            class="relative w-72 drop-shadow-[0_0_40px_rgba(212,168,67,0.1)] lg:w-96"
+            src={founders}
+            alt="Lock & Logic founders"
+            width={600}
+            class="relative rounded-2xl w-full max-w-lg drop-shadow-[0_0_40px_rgba(212,168,67,0.1)]"
           />
         </div>
       </div>

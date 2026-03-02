@@ -1,6 +1,7 @@
 ---
 import RoomCard from './RoomCard.astro';
 import { rooms } from '../data/rooms';
+import { baseUrl } from '../utils/url';
 ---
 
 <section class="relative bg-navy-950 py-24">
@@ -22,6 +23,7 @@ import { rooms } from '../data/rooms';
             duration={room.duration}
             price={room.price}
             slug={room.slug}
+            image={room.image}
             gradientFrom={room.gradientFrom}
             gradientTo={room.gradientTo}
           />
@@ -31,7 +33,7 @@ import { rooms } from '../data/rooms';
 
     <div class="reveal mt-12 text-center">
       <a
-        href="/rooms"
+        href={baseUrl('/rooms')}
         class="group inline-flex items-center gap-2 rounded-full border border-steel-400/20 px-6 py-3 text-sm font-medium text-steel-200 transition-all duration-300 hover:border-gold-400/40 hover:text-gold-300"
       >
         View All Rooms

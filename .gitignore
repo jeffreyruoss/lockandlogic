@@ -25,3 +25,10 @@ pnpm-debug.log*
 
 # docs site (separate repo)
 docs-site/
+
+# MCP server build artifacts
+.claude/mcp-servers/image-tools/dist/
+.claude/mcp-servers/image-tools/node_modules/
+
+# DealMeInGames 2024 for fog reference
+dealmeingames2024-main

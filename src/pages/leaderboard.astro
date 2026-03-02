@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import LeaderboardTable from '../components/LeaderboardTable.astro';
 import { leaderboardData } from '../data/leaderboard';
+import { baseUrl } from '../utils/url';
 ---
 
 <BaseLayout title="Leaderboard" description="See the fastest escape room times at Lock & Logic. Can your team make the top 10?">
@@ -42,7 +43,7 @@ import { leaderboardData } from '../data/leaderboard';
         <h2 class="mb-3 font-heading text-2xl font-bold text-steel-100">Think You Can Do Better?</h2>
         <p class="mb-6 text-steel-400">Gather your team and take on the challenge. The leaderboard is waiting.</p>
         <a
-          href="/book"
+          href={baseUrl('/book')}
           class="inline-flex items-center rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
         >
           Book Your Escape

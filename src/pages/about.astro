@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.webp';
+import { baseUrl } from '../utils/url';
 import alexMorgan from '../assets/team/alex-morgan.webp';
 import jordanChen from '../assets/team/jordan-chen.webp';
 import samRivera from '../assets/team/sam-rivera.webp';
@@ -155,7 +156,7 @@ const teamImages: Record<string, ImageMetadata> = {
       <h2 class="text-gold-gradient mb-4 font-heading text-3xl font-bold">Ready for Your First Escape?</h2>
       <p class="mb-8 text-steel-400">Pick a room, gather your team, and see if you have what it takes.</p>
       <a
-        href="/book"
+        href={baseUrl('/book')}
         class="inline-flex items-center rounded-lg bg-gold-400 px-8 py-3.5 text-base font-bold text-navy-950 transition-colors hover:bg-gold-500"
       >
         Book Now

@@ -1,0 +1,80 @@
+---
+import { baseUrl } from '../utils/url';
+
+interface Props {
+  type: 'booking' | 'gift-voucher';
+}
+
+const { type } = Astro.props;
+const accountId = import.meta.env.PUBLIC_BOOKEO_ACCOUNT_ID;
+
+const labels: Record<string, string> = {
+  booking: 'Online Booking',
+  'gift-voucher': 'Gift Cards',
+};
+
+const label = labels[type];
+
+const widgetTypes: Record<string, string> = {
+  booking: 'booking',
+  'gift-voucher': 'giftvoucher',
+};
+
+const widgetType = widgetTypes[type];
+const scriptSrc = accountId
+  ? `https://bookeo.com/widget.js?a=${accountId}&type=${widgetType}`
+  : '';
+---
+
+{accountId ? (
+  <div class="bookeo-widget mx-auto max-w-3xl">
+    <div id={`bookeo-${type}`} class="flex min-h-[400px] items-center justify-center">
+      <div class="bookeo-loading text-center">
+        <div class="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-navy-700 border-t-gold-400"></div>
+        <p class="text-sm text-steel-400">Loading {label.toLowerCase()}...</p>
+      </div>
+    </div>
+    <script is:inline define:vars={{ scriptSrc }}>
+      window.bookeo_mobileMode = "button";
+      var s = document.createElement('script');
+      s.src = scriptSrc;
+      s.async = true;
+      s.onload = function() {
+        var loader = document.querySelector('.bookeo-loading');
+        if (loader) loader.style.display = 'none';
+      };
+      document.currentScript.parentElement.appendChild(s);
+    </script>
+  </div>
+) : (
+  <div class="mx-auto max-w-3xl">
+    <div class="overflow-hidden rounded-xl border border-navy-700/50 bg-navy-900">
+      <div class="flex min-h-[400px] flex-col items-center justify-center px-6 py-16 text-center">
+        <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-gold-400/20 bg-gold-400/5">
+          <svg class="h-8 w-8 text-gold-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+        </div>
+        <p class="mb-2 font-heading text-lg font-bold text-steel-100">{label} Coming Soon</p>
+        <p class="mb-6 text-sm text-steel-400">
+          We're setting up our online {label.toLowerCase()} system. In the meantime, reach out to book directly.
+        </p>
+        <a
+          href={baseUrl('/contact')}
+          class="inline-flex items-center gap-2 rounded-lg bg-gold-400 px-6 py-3 font-heading text-sm font-bold text-navy-950 transition hover:bg-gold-300"
+        >
+          Contact Us to Book
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  .bookeo-widget :global(iframe) {
+    width: 100% !important;
+  }
+</style>

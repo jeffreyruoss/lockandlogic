@@ -1,25 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import locationImage from '../assets/location/location-building.webp';
+import { baseUrl } from '../utils/url';
+---
+
 <section class="relative py-24">
   <div class="absolute left-1/2 top-0 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold-400/15 to-transparent" aria-hidden="true"></div>
 
-  <div class="reveal mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-    <span class="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-teal-400 text-glow-teal">Visit Us</span>
-    <h2 class="text-gold-gradient text-glow-gold mb-5 font-heading text-4xl font-bold sm:text-5xl">Find Us in Pottstown, PA</h2>
-    <p class="mb-8 text-lg text-steel-400">
-      Conveniently located off Route 100, near the Pottstown Diner.
-    </p>
+  <div class="reveal mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="overflow-hidden rounded-2xl">
+        <Image
+          src={locationImage}
+          alt="Lock & Logic escape room building entrance at night"
+          widths={[400, 600, 800]}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          class="w-full rounded-2xl object-cover"
+        />
+      </div>
 
-    <p class="mb-10 font-heading text-5xl font-bold text-gold-400 text-glow-gold sm:text-6xl">
-      Opening May 2026
-    </p>
+      <div class="text-center lg:text-left">
+        <span class="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-teal-400 text-glow-teal">Visit Us</span>
+        <h2 class="text-gold-gradient text-glow-gold mb-5 font-heading text-4xl font-bold sm:text-5xl">Find Us in Pottstown, PA</h2>
+        <p class="mb-8 text-lg text-steel-400">
+          Conveniently located off Route 100, near the Pottstown Diner.
+        </p>
 
-    <a
-      href="/contact"
-      class="group inline-flex items-center gap-2 rounded-xl border border-gold-400/30 bg-gold-400/5 px-10 py-4 text-base font-semibold text-gold-400 transition-all duration-300 hover:border-gold-400 hover:bg-gold-400 hover:text-navy-950 hover:shadow-[0_0_25px_rgba(212,168,67,0.2)]"
-    >
-      Get in Touch
-      <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-      </svg>
-    </a>
+        <p class="mb-10 font-heading text-5xl font-bold text-gold-400 text-glow-gold sm:text-6xl">
+          Opening May 2026
+        </p>
+
+        <a
+          href={baseUrl('/contact')}
+          class="group inline-flex items-center gap-2 rounded-xl border border-gold-400/30 bg-gold-400/5 px-10 py-4 text-base font-semibold text-gold-400 transition-all duration-300 hover:border-gold-400 hover:bg-gold-400 hover:text-navy-950 hover:shadow-[0_0_25px_rgba(212,168,67,0.2)]"
+        >
+          Get in Touch
+          <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
