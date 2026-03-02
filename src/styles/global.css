@@ -22,8 +22,8 @@
   --color-steel-200: #c8cdd8;
   --color-steel-400: #8a93a8;
 
-  --color-teal-400: #2dd4a8;
-  --color-teal-500: #1aab87;
+  --color-teal-400: #41AFC2;
+  --color-teal-500: #358fa0;
 }
 
 /* ── Base styles ───────────────────────────────────── */
@@ -71,9 +71,9 @@
 
 @utility text-glow-teal {
   text-shadow:
-    0 0 7px rgba(45, 212, 168, 0.3),
-    0 0 20px rgba(45, 212, 168, 0.15),
-    0 0 40px rgba(45, 212, 168, 0.08);
+    0 0 7px rgba(65, 175, 194, 0.3),
+    0 0 20px rgba(65, 175, 194, 0.15),
+    0 0 40px rgba(65, 175, 194, 0.08);
 }
 
 @utility card-elevated {
