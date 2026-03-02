@@ -2,8 +2,83 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.webp';
 import heroBg from '../assets/hero-bg.webp';
+import mistSrc from '../assets/mist.webp';
 
-// Seeded PRNG for deterministic builds (simple LCG)
+// ── Hero Effect Configuration ─────────────────────────
+// Adjust these values to tune the hero visual effects.
+const fx = {
+  // Ken Burns slow pan/zoom on background image
+  kenBurns: {
+    duration: '28s',           // full cycle length
+  },
+
+  // Dark overlay candlelight flicker
+  candlelight: {
+    duration: '4s',            // flicker cycle length
+    base: 0.58,                // resting opacity (higher = darker)
+    bright: 0.62,              // dimmest moment (most see-through)
+    dim: 0.48,                 // dim flicker
+    dimmer: 0.45,              // deepest dim
+  },
+
+  // Lightning double-flash
+  lightning: {
+    cycle: '12s',              // time between flash cycles
+    delay: '2.8s',             // delay before first flash (syncs with title glow)
+    flash1: 0.15,              // first flash brightness (0-1)
+    flash2: 0.25,              // second flash brightness (0-1, brighter)
+  },
+
+  // Floating dust particles
+  particles: {
+    count: 14,                 // number of particles
+    sizeMin: 2,                // minimum size in px
+    sizeMax: 5,                // maximum size in px
+    glowSize: 8,               // glow radius around each particle (px)
+    glowOpacity: 0.7,          // glow strength (0-1)
+    floatDistance: 80,          // how far they float upward (px)
+    durationMin: 8,            // shortest float cycle (seconds)
+    durationMax: 18,           // longest float cycle (seconds)
+    delayMax: 10,              // max random start delay (seconds)
+    peakOpacity: 0.7,          // particle brightness at peak (0-1)
+  },
+
+  // Mist/fog overlay (image-based, CSS animated)
+  mist: {
+    count: 10,                 // number of mist instances
+    sizeMin: 350,              // minimum size in px
+    sizeMax: 650,              // maximum size in px
+    opacityMin: 0.6,           // minimum opacity
+    opacityMax: 0.95,          // maximum opacity
+    contrast: 2,               // contrast filter boost (1 = none, 2 = original dealmeingames)
+    saturate: 0,               // color saturation (0 = no color/neutral, 1 = original blue tint)
+    durationMin: 14,           // shortest drift cycle (seconds)
+    durationMax: 28,           // longest drift cycle (seconds)
+    delayMax: 15,              // max random start delay (seconds)
+  },
+
+  // CTA "Book Your Escape" button pulse
+  ctaPulse: {
+    duration: '2.5s',          // pulse cycle length
+  },
+
+  // Parallax scroll effect
+  parallax: {
+    speed: 0.3,                // 0 = none, 0.3 = subtle, 1 = full speed
+  },
+
+  // Entrance animation stagger (seconds)
+  entrance: {
+    logo:        { delay: 0.1, duration: 0.8 },
+    subtitle:    { delay: 0.3, duration: 0.7 },
+    h1:          { delay: 0.5, duration: 0.7 },
+    description: { delay: 0.7, duration: 0.7 },
+    buttons:     { delay: 0.9, duration: 0.7 },
+    titleFlash:  { delay: 1.6, duration: 1.0 },
+  },
+};
+
+// ── Seeded PRNG for deterministic builds ──────────────
 function seededRandom(seed: number) {
   return () => {
     seed = (seed * 1664525 + 1013904223) & 0xffffffff;
@@ -12,17 +87,49 @@ function seededRandom(seed: number) {
 }
 const rand = seededRandom(42);
 
-// Generate dust particles at build time (SSG — zero runtime JS)
-const particles = Array.from({ length: 14 }, () => ({
-  top: `${5 + rand() * 90}%`,
-  left: `${5 + rand() * 90}%`,
-  size: `${1 + rand() * 2}px`,
-  duration: `${8 + rand() * 10}s`,
-  delay: `${Math.round(rand() * 10)}s`,
-}));
+// ── Generate dust particles at build time (zero runtime JS) ──
+const particles = Array.from({ length: fx.particles.count }, () => {
+  const size = fx.particles.sizeMin + rand() * (fx.particles.sizeMax - fx.particles.sizeMin);
+  return {
+    top: `${5 + rand() * 90}%`,
+    left: `${5 + rand() * 90}%`,
+    size: `${size}px`,
+    glow: `0 0 ${fx.particles.glowSize}px rgba(212,168,67,${fx.particles.glowOpacity})`,
+    duration: `${fx.particles.durationMin + rand() * (fx.particles.durationMax - fx.particles.durationMin)}s`,
+    delay: `${Math.round(rand() * fx.particles.delayMax)}s`,
+  };
+});
+
+// ── Generate mist instances at build time ─────────────
+const mistAnimations = ['mist-drift-a', 'mist-drift-b', 'mist-drift-c'];
+const mistInstances = Array.from({ length: fx.mist.count }, (_, i) => {
+  const size = fx.mist.sizeMin + rand() * (fx.mist.sizeMax - fx.mist.sizeMin);
+  const opacity = fx.mist.opacityMin + rand() * (fx.mist.opacityMax - fx.mist.opacityMin);
+  const duration = fx.mist.durationMin + rand() * (fx.mist.durationMax - fx.mist.durationMin);
+  const delay = rand() * fx.mist.delayMax;
+  const anim = mistAnimations[i % mistAnimations.length];
+  return {
+    top: `${-15 + rand() * 100}%`,
+    left: `${-15 + rand() * 100}%`,
+    size: `${size}px`,
+    opacity,
+    animation: `${anim} ${duration.toFixed(1)}s ease-in-out ${delay.toFixed(1)}s infinite`,
+  };
+});
+
+// CSS custom properties string for the section (drives keyframe values)
+const cssVars = [
+  `--candle-base:${fx.candlelight.base}`,
+  `--candle-bright:${fx.candlelight.bright}`,
+  `--candle-dim:${fx.candlelight.dim}`,
+  `--candle-dimmer:${fx.candlelight.dimmer}`,
+  `--lightning-flash1:${fx.lightning.flash1}`,
+  `--lightning-flash2:${fx.lightning.flash2}`,
+  `--dust-opacity:${fx.particles.peakOpacity}`,
+].join(';');
 ---
 
-<section aria-label="Hero" class="relative flex min-h-[600px] h-[calc(100dvh-3.5rem)] max-h-[1100px] items-center justify-center overflow-hidden">
+<section aria-label="Hero" class="relative flex min-h-[600px] h-[calc(100dvh-3.5rem)] max-h-[1100px] items-center justify-center overflow-hidden" style={cssVars}>
   <!-- 1. Background image with Ken Burns (inside parallax wrapper) -->
   <div data-hero-bg class="absolute inset-0 z-[1] will-change-transform" aria-hidden="true">
     <Image
@@ -30,7 +137,7 @@ const particles = Array.from({ length: 14 }, () => ({
       alt=""
       widths={[768, 1280, 1920]}
       sizes="100vw"
-      class="absolute inset-0 h-full w-full object-cover animate-[ken-burns_28s_ease-in-out_infinite]"
+      class={`absolute inset-0 h-full w-full object-cover animate-[ken-burns_${fx.kenBurns.duration}_ease-in-out_infinite]`}
       loading="eager"
     />
   </div>
@@ -38,7 +145,7 @@ const particles = Array.from({ length: 14 }, () => ({
   <!-- 2. Dark overlay with candlelight flicker -->
   <div
     class="absolute inset-0 z-[2] bg-navy-950"
-    style="animation: candlelight 4s ease-in-out infinite;"
+    style={`animation: candlelight ${fx.candlelight.duration} ease-in-out infinite;`}
     aria-hidden="true"
   ></div>
 
@@ -49,17 +156,19 @@ const particles = Array.from({ length: 14 }, () => ({
     aria-hidden="true"
   ></div>
 
-  <!-- 4. Fog layers -->
-  <div
-    class="absolute top-0 right-0 bottom-0 z-[4] w-[150%] -left-[25%] pointer-events-none"
-    style="background: radial-gradient(ellipse at 30% 50%, rgba(200,205,216,0.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 40%, rgba(200,205,216,0.06) 0%, transparent 55%); animation: fog-drift-1 20s ease-in-out infinite;"
-    aria-hidden="true"
-  ></div>
-  <div
-    class="absolute top-0 right-0 bottom-0 z-[4] w-[150%] -left-[25%] pointer-events-none"
-    style="background: radial-gradient(ellipse at 60% 60%, rgba(200,205,216,0.1) 0%, transparent 50%), radial-gradient(ellipse at 25% 30%, rgba(200,205,216,0.07) 0%, transparent 60%); animation: fog-drift-2 27s ease-in-out infinite;"
-    aria-hidden="true"
-  ></div>
+  <!-- 4. Mist/fog overlay -->
+  <div class="absolute inset-0 z-[4] pointer-events-none overflow-hidden" style={`filter: contrast(${fx.mist.contrast}) saturate(${fx.mist.saturate});`} aria-hidden="true">
+    {mistInstances.map((m) => (
+      <img
+        src={mistSrc.src}
+        alt=""
+        width="256"
+        height="256"
+        class="absolute"
+        style={`top:${m.top};left:${m.left};width:${m.size};height:${m.size};opacity:${m.opacity};animation:${m.animation};`}
+      />
+    ))}
+  </div>
 
   <!-- 5. Vignette -->
   <div
@@ -73,24 +182,24 @@ const particles = Array.from({ length: 14 }, () => ({
     {particles.map((p) => (
       <span
         class="absolute rounded-full bg-gold-400"
-        style={`top:${p.top};left:${p.left};width:${p.size};height:${p.size};animation:dust-float ${p.duration} ease-in-out ${p.delay} infinite;`}
+        style={`top:${p.top};left:${p.left};width:${p.size};height:${p.size};box-shadow:${p.glow};animation:dust-float ${p.duration} ease-in-out ${p.delay} infinite;`}
       />
     ))}
   </div>
 
-  <!-- 7. Lightning flash overlay -->
+  <!-- 6. Lightning flash overlay -->
   <div
     class="absolute inset-0 z-[7] bg-white pointer-events-none"
-    style="animation: lightning 10s ease-in-out infinite;"
+    style={`opacity: 0; animation: lightning ${fx.lightning.cycle} ease-in-out ${fx.lightning.delay} infinite both;`}
     aria-hidden="true"
   ></div>
 
-  <!-- 8. Content with staggered entrance animations -->
+  <!-- 7. Content with staggered entrance animations -->
   <div class="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-    <!-- Logo with glow — slides from top -->
+    <!-- Logo — slides from top -->
     <div
       class="hero-entrance relative mx-auto mb-[clamp(1rem,2vh,2.5rem)] w-[clamp(19.5rem,36vh,31rem)]"
-      style="animation: slide-in-top 0.8s ease-out 0.1s both;"
+      style={`animation: slide-in-top ${fx.entrance.logo.duration}s ease-out ${fx.entrance.logo.delay}s both;`}
     >
       <div class="absolute inset-0 scale-110 rounded-full bg-gold-400/[0.06] blur-3xl" aria-hidden="true"></div>
       <Image
@@ -104,7 +213,7 @@ const particles = Array.from({ length: 14 }, () => ({
     <!-- Subtitle — slides from left -->
     <p
       class="hero-entrance mb-[clamp(0.5rem,1vh,1.25rem)] text-sm font-semibold uppercase tracking-[0.25em] text-teal-400 text-glow-teal"
-      style="animation: slide-in-left 0.7s ease-out 0.3s both;"
+      style={`animation: slide-in-left ${fx.entrance.subtitle.duration}s ease-out ${fx.entrance.subtitle.delay}s both;`}
     >
       Pottstown, PA &mdash; Opening May 2026
     </p>
@@ -112,7 +221,7 @@ const particles = Array.from({ length: 14 }, () => ({
     <!-- H1 — slides from right, then flashes -->
     <h1
       class="hero-entrance text-gold-gradient mb-[clamp(0.75rem,1.5vh,1.5rem)] font-heading text-[clamp(3.25rem,8vh,8rem)] font-bold leading-tight"
-      style="animation: slide-in-right 0.7s ease-out 0.5s both, title-flash 1s ease-out 1.6s both;"
+      style={`animation: slide-in-right ${fx.entrance.h1.duration}s ease-out ${fx.entrance.h1.delay}s both, title-flash ${fx.entrance.titleFlash.duration}s ease-out ${fx.entrance.titleFlash.delay}s both;`}
     >
       Unlock the Mystery
     </h1>
@@ -120,7 +229,7 @@ const particles = Array.from({ length: 14 }, () => ({
     <!-- Description — slides from left -->
     <p
       class="hero-entrance mx-auto mb-[clamp(1.25rem,2.5vh,3rem)] max-w-2xl text-lg leading-relaxed text-steel-200 sm:text-xl"
-      style="animation: slide-in-left 0.7s ease-out 0.7s both;"
+      style={`animation: slide-in-left ${fx.entrance.description.duration}s ease-out ${fx.entrance.description.delay}s both;`}
     >
       Immersive escape room experiences where every clue counts and every second matters.
     </p>
@@ -128,18 +237,18 @@ const particles = Array.from({ length: 14 }, () => ({
     <!-- Buttons — slide from bottom -->
     <div
       class="hero-entrance flex flex-col items-center gap-5 sm:flex-row sm:justify-center"
-      style="animation: slide-in-bottom 0.7s ease-out 0.9s both;"
+      style={`animation: slide-in-bottom ${fx.entrance.buttons.duration}s ease-out ${fx.entrance.buttons.delay}s both;`}
     >
       <a
         href="/book"
-        class="group relative overflow-hidden rounded-xl bg-gold-400 px-10 py-4 text-base font-bold text-navy-950 transition-all duration-300 hover:bg-gold-500 hover:scale-105 animate-[glow-pulse_3s_ease-in-out_infinite]"
+        class={`group relative overflow-hidden rounded-xl bg-gold-400 px-10 py-4 text-base font-bold text-navy-950 transition-all duration-300 hover:bg-gold-500 hover:scale-105 animate-[cta-pulse_${fx.ctaPulse.duration}_ease-in-out_infinite]`}
       >
         <span class="relative z-10">Book Your Escape</span>
       </a>
 
       <a
         href="/rooms"
-        class="group inline-flex items-center gap-2 rounded-xl border border-steel-400/20 px-8 py-4 text-base font-medium text-steel-200 backdrop-blur-sm transition-all duration-300 hover:border-gold-400/40 hover:text-gold-300"
+        class="group inline-flex items-center gap-2 rounded-xl bg-teal-500 px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:bg-teal-400 hover:scale-105"
       >
         Explore Our Rooms
         <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
@@ -150,12 +259,12 @@ const particles = Array.from({ length: 14 }, () => ({
   </div>
 </section>
 
-<!-- 9. Parallax scrolling -->
-<script>
-  const hero = document.querySelector<HTMLElement>('[data-hero-bg]');
+<!-- Parallax scrolling -->
+<script define:vars={{ parallaxSpeed: fx.parallax.speed }}>
+  const hero = document.querySelector('[data-hero-bg]');
   if (hero) {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let rafId: number | null = null;
+    let rafId = null;
     let isVisible = true;
 
     const io = new IntersectionObserver(([entry]) => {
@@ -167,9 +276,19 @@ const particles = Array.from({ length: 14 }, () => ({
       if (mq.matches || !isVisible) return;
       if (rafId !== null) return;
       rafId = requestAnimationFrame(() => {
-        hero.style.transform = `translateY(${window.scrollY * -0.3}px)`;
+        hero.style.transform = `translateY(${window.scrollY * -parallaxSpeed}px)`;
         rafId = null;
       });
     }, { passive: true });
   }
 </script>
+
+<style>
+  /* Override dust-float peak opacity via custom property */
+  @keyframes dust-float {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+    10%      { opacity: var(--dust-opacity, 0.7); }
+    90%      { opacity: var(--dust-opacity, 0.7); }
+    50%      { transform: translateY(-80px) translateX(20px); }
+  }
+</style>

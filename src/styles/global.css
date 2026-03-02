@@ -119,6 +119,11 @@
   50% { box-shadow: 0 0 30px rgba(212, 168, 67, 0.4), 0 0 60px rgba(212, 168, 67, 0.15); }
 }
 
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(212, 168, 67, 0.15), 0 0 30px rgba(212, 168, 67, 0.05); }
+  50% { box-shadow: 0 0 30px rgba(212, 168, 67, 0.5), 0 0 60px rgba(212, 168, 67, 0.25), 0 0 90px rgba(212, 168, 67, 0.1); }
+}
+
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
@@ -134,18 +139,6 @@
   0%   { transform: scale(1.0) translate(0, 0); }
   50%  { transform: scale(1.08) translate(-1.5%, -1%); }
   100% { transform: scale(1.0) translate(0, 0); }
-}
-
-@keyframes fog-drift-1 {
-  0%   { transform: translateX(-15%); }
-  50%  { transform: translateX(15%); }
-  100% { transform: translateX(-15%); }
-}
-
-@keyframes fog-drift-2 {
-  0%   { transform: translateX(10%); }
-  50%  { transform: translateX(-20%); }
-  100% { transform: translateX(10%); }
 }
 
 @keyframes dust-float {
@@ -182,20 +175,40 @@
 }
 
 @keyframes lightning {
-  0%, 100% { opacity: 0; }
-  83%    { opacity: 0; }
-  84%    { opacity: 0.15; }
-  84.5%  { opacity: 0; }
-  85.5%  { opacity: 0; }
-  86%    { opacity: 0.25; }
-  87%    { opacity: 0; }
+  0%     { opacity: 0; }
+  3%     { opacity: var(--lightning-flash1, 0.15); }
+  3.5%   { opacity: 0; }
+  4.5%   { opacity: 0; }
+  5%     { opacity: var(--lightning-flash2, 0.25); }
+  5.5%   { opacity: 0; }
+  100%   { opacity: 0; }
+}
+
+@keyframes mist-drift-a {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33%  { transform: translate(150px, -70px) rotate(20deg) scale(1.08); }
+  66%  { transform: translate(-60px, 40px) rotate(-10deg) scale(0.95); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+
+@keyframes mist-drift-b {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33%  { transform: translate(-130px, 60px) rotate(-18deg) scale(1.06); }
+  66%  { transform: translate(80px, -35px) rotate(14deg) scale(0.93); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+
+@keyframes mist-drift-c {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50%  { transform: translate(100px, 50px) rotate(25deg) scale(1.1); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
 }
 
 @keyframes candlelight {
-  0%, 100% { opacity: 0.60; }
-  25%      { opacity: 0.55; }
-  50%      { opacity: 0.65; }
-  75%      { opacity: 0.53; }
+  0%, 100% { opacity: var(--candle-base, 0.58); }
+  25%      { opacity: var(--candle-dim, 0.48); }
+  50%      { opacity: var(--candle-bright, 0.62); }
+  75%      { opacity: var(--candle-dimmer, 0.45); }
 }
 
 @property --border-angle {
