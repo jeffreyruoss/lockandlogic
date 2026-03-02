@@ -28,21 +28,11 @@ const scriptSrc = accountId
 
 {accountId ? (
   <div class="bookeo-widget mx-auto max-w-3xl">
-    <div id={`bookeo-${type}`} class="flex min-h-[400px] items-center justify-center">
-      <div class="bookeo-loading text-center">
-        <div class="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-navy-700 border-t-gold-400"></div>
-        <p class="text-sm text-steel-400">Loading {label.toLowerCase()}...</p>
-      </div>
-    </div>
     <script is:inline define:vars={{ scriptSrc }}>
       window.bookeo_mobileMode = "button";
       var s = document.createElement('script');
       s.src = scriptSrc;
       s.async = true;
-      s.onload = function() {
-        var loader = document.querySelector('.bookeo-loading');
-        if (loader) loader.style.display = 'none';
-      };
       document.currentScript.parentElement.appendChild(s);
     </script>
   </div>
