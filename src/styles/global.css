@@ -193,15 +193,10 @@
   inherits: false;
 }
 
-/* Scroll-driven reveal (Chrome 115+, Safari 18+) */
-@supports (animation-timeline: view()) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    animation: fade-in-up 0.6s ease both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 35%;
-  }
+/* Scroll reveal – initial hidden state (JS drives the transition) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
 }
 
 @media (prefers-reduced-motion: reduce) {

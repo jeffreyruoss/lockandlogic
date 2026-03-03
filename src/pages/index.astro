@@ -20,8 +20,13 @@ import LocationTeaser from '../components/LocationTeaser.astro';
 
   <script>
     (() => {
-      if (CSS.supports('animation-timeline', 'view()')) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.reveal').forEach((el) => {
+          (el as HTMLElement).style.opacity = '1';
+          (el as HTMLElement).style.transform = 'none';
+        });
+        return;
+      }
       const els = document.querySelectorAll('.reveal');
       if (els.length === 0) return;
       const io = new IntersectionObserver((entries) => {
@@ -35,8 +40,6 @@ import LocationTeaser from '../components/LocationTeaser.astro';
       }, { threshold: 0.1 });
       els.forEach((el) => {
         const e = el as HTMLElement;
-        e.style.opacity = '0';
-        e.style.transform = 'translateY(24px)';
         e.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         const delay = e.style.animationDelay;
         if (delay) e.style.transitionDelay = delay;
