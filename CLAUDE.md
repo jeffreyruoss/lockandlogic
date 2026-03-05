@@ -11,7 +11,7 @@ Escape room website project.
 
 - VitePress with `srcDir: 'docs'`, `base: '/lockandlogic-docs/'`
 - Config at `.vitepress/config.mts`, custom theme at `.vitepress/theme/`
-- Client-side password gate (password in `PasswordGate.vue`, default: `lockandlogic2026`, stored in `localStorage` as `ll-docs-auth`)
+- Client-side password gate (password in `PasswordGate.vue`, default: `SiL$C6$Td4*wA6se`, stored in `localStorage` as `ll-docs-auth`)
 - All markdown docs live directly in `docs-site/docs/` (single source of truth)
 - Dev server: `npm run docs:dev` (serves at `http://localhost:5173/lockandlogic-docs/`)
 - Sidebar: 5 client-facing docs by default; admin IP sees all docs grouped by Client-Facing / Internal
