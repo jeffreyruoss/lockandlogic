@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { baseUrl } from '../utils/url';
+
+const reviews = [
+  {
+    quote: "The Vault was hands down the best escape room we've ever done. The puzzles were creative, the set design was incredible, and the staff made us feel like real bank robbers. We'll definitely be back for Circuit Breaker!",
+    name: 'Sarah M.',
+    context: 'The Vault — Team of 4',
+    stars: 5,
+  },
+  {
+    quote: "We brought our team of six for a corporate outing and had an absolute blast. The Forgotten Library had us stumped a few times, but the 'aha!' moments made it so worth it. Highly recommend for team building!",
+    name: 'Jason R.',
+    context: 'The Forgotten Library — Corporate Event',
+    stars: 5,
+  },
+  {
+    quote: "My kids (ages 14 and 16) loved it just as much as we did. Lock & Logic is the perfect mix of challenging and fun. The atmosphere is top-notch — dark, immersive, and genuinely exciting.",
+    name: 'Amanda T.',
+    context: 'Circuit Breaker — Family Night',
+    stars: 5,
+  },
+  {
+    quote: "We've done escape rooms in Philly and New York, but Lock & Logic blew them all away. The attention to detail in every room is unreal. Our group of 8 split into two rooms and had a blast comparing notes afterward.",
+    name: 'Chris D.',
+    context: 'The Vault & The Forgotten Library — Friends Night Out',
+    stars: 5,
+  },
+  {
+    quote: "Booked this for my wife's birthday and it was the highlight of the evening. The game master was friendly and gave us just enough hints to keep us moving without spoiling anything. We escaped with 3 minutes left!",
+    name: 'Marcus L.',
+    context: 'Circuit Breaker — Birthday Party',
+    stars: 5,
+  },
+  {
+    quote: "I'm not usually into escape rooms but my coworkers dragged me along. I was completely hooked within the first five minutes. The storyline pulled me in and the puzzles were genuinely clever. Already planning our next visit.",
+    name: 'Priya S.',
+    context: 'The Forgotten Library — Corporate Team Building',
+    stars: 5,
+  },
+  {
+    quote: "Took my scout troop here and the kids had an incredible time. The staff was patient, encouraging, and made sure everyone felt included. It's a perfect activity for groups of teens.",
+    name: 'Denise K.',
+    context: 'The Vault — Scout Troop Outing',
+    stars: 5,
+  },
+  {
+    quote: "We come back every time a new room opens. Lock & Logic keeps raising the bar — Circuit Breaker is their best one yet. Fair warning: once you start, you'll be addicted.",
+    name: 'Tyler & Morgan B.',
+    context: 'Circuit Breaker — Repeat Visitors',
+    stars: 5,
+  },
+  {
+    quote: "Clean facility, friendly staff, and puzzles that actually make you think. No random padlocks on everything — these rooms tell a story. Worth the drive from King of Prussia.",
+    name: 'Danielle W.',
+    context: 'The Forgotten Library — Date Night',
+    stars: 5,
+  },
+];
+
+const averageRating = 5.0;
+const totalReviews = reviews.length;
+---
+
+<BaseLayout title="Reviews" description="See what players are saying about Lock & Logic escape rooms in Pottstown, PA.">
+  <PageHero title="Player Reviews" subtitle="Don't just take our word for it — hear from the people who've played." />
+
+  <!-- Summary -->
+  <section class="py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center gap-4 rounded-2xl border border-navy-700/50 bg-navy-900 px-8 py-10 text-center sm:flex-row sm:justify-center sm:gap-12 sm:text-left">
+        <div>
+          <div class="font-heading text-5xl font-bold text-gold-400">{averageRating.toFixed(1)}</div>
+          <div class="mt-1 flex justify-center gap-0.5 sm:justify-start">
+            {Array.from({ length: 5 }).map(() => (
+              <svg class="h-5 w-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+          </div>
+        </div>
+        <div class="h-px w-16 bg-navy-700/50 sm:h-16 sm:w-px"></div>
+        <div>
+          <div class="font-heading text-5xl font-bold text-steel-100">{totalReviews}</div>
+          <div class="mt-1 text-sm text-steel-400">Player Reviews</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Grid -->
+  <section class="pb-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {reviews.map((review) => (
+          <blockquote class="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-navy-900/40 p-7 backdrop-blur-sm transition-all duration-500 hover:border-white/[0.12] hover:card-elevated">
+            <span class="absolute -left-2 -top-6 font-heading text-8xl leading-none text-gold-400/[0.07] transition-colors duration-500 group-hover:text-gold-400/[0.12]" aria-hidden="true">&ldquo;</span>
+
+            <div class="relative mb-4 flex gap-0.5" aria-label={`${review.stars} out of 5 stars`}>
+              {Array.from({ length: review.stars }).map(() => (
+                <svg class="h-4 w-4 text-gold-400 drop-shadow-[0_0_3px_rgba(212,168,67,0.3)]" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
+            </div>
+
+            <p class="relative mb-5 text-sm leading-relaxed text-steel-200">{review.quote}</p>
+
+            <footer>
+              <div class="text-sm font-semibold text-gold-400">{review.name}</div>
+              <div class="text-xs text-steel-400">{review.context}</div>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="border-t border-navy-700/50 bg-navy-900 py-16">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="text-gold-gradient font-heading text-3xl font-bold">Ready to Join the Fun?</h2>
+      <p class="mt-4 text-steel-400">Book your escape room experience and see why players keep coming back.</p>
+      <a
+        href={baseUrl('/book')}
+        class="mt-8 inline-block rounded-md bg-gold-400 px-8 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
+      >
+        Book Now
+      </a>
+    </div>
+  </section>
+</BaseLayout>
