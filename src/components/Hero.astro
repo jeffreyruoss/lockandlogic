@@ -138,7 +138,8 @@ const cssVars = [
       alt=""
       widths={[768, 1280, 1920]}
       sizes="100vw"
-      class={`absolute inset-0 h-full w-full object-cover animate-[ken-burns_${fx.kenBurns.duration}_ease-in-out_infinite]`}
+      class="absolute inset-0 h-full w-full object-cover"
+      style={`animation: ken-burns ${fx.kenBurns.duration} ease-in-out infinite;`}
       loading="eager"
     />
   </div>
@@ -195,7 +196,10 @@ const cssVars = [
     aria-hidden="true"
   ></div>
 
-  <!-- 7. Content with staggered entrance animations -->
+  <!-- 8. Cursor glow -->
+  <div id="cursor-glow" class="fixed top-0 left-0 z-[8] h-[300px] w-[300px] rounded-full pointer-events-none opacity-0 transition-opacity duration-300 -translate-x-1/2 -translate-y-1/2" style="background: radial-gradient(circle, rgba(65,175,194,0.08) 0%, transparent 70%);" aria-hidden="true"></div>
+
+  <!-- 9. Content with staggered entrance animations -->
   <div class="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
     <!-- Logo — slides from top -->
     <div
@@ -259,6 +263,37 @@ const cssVars = [
     </div>
   </div>
 </section>
+
+<!-- Cursor glow -->
+<script>
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const glowEl = document.getElementById('cursor-glow');
+
+  if (!isTouch && !mq.matches && glowEl) {
+    let rafId = null;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      glowEl.style.opacity = '1';
+
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          glowEl.style.left = mouseX + 'px';
+          glowEl.style.top = mouseY + 'px';
+          rafId = null;
+        });
+      }
+    });
+
+    document.addEventListener('mouseleave', () => {
+      glowEl.style.opacity = '0';
+    });
+  }
+</script>
 
 <!-- Parallax scrolling -->
 <script define:vars={{ parallaxSpeed: fx.parallax.speed }}>
