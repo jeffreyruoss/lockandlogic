@@ -31,4 +31,4 @@ Escape room website project.
 
 ## Additional Work Tracking
 
-Extra work beyond the original proposal is tracked in `docs-site/docs/extras.md` on the docs site repo. After committing significant work to the Astro site, remind the user to consider adding it to the extras page on the docs site if it qualifies (new features, setup config, content, design work — not bug fixes or standard dev tasks).
+Extra work beyond the original proposal is tracked in `docs-site/docs/extras.md` on the docs site repo. After committing significant work to the Astro site, remind the user to consider adding it to the extras page on the docs site if it qualifies (new features, setup config, content, design work — not bug fixes, standard dev tasks, or changes to features already in the proposal like rewriting room text).
