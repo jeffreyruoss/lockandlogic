@@ -2,65 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { baseUrl } from '../utils/url';
+import { reviews, averageRating } from '../data/reviews';
 
-const reviews = [
-  {
-    quote: "The Vault was hands down the best escape room we've ever done. The puzzles were creative, the set design was incredible, and the staff made us feel like real bank robbers. We'll definitely be back for Circuit Breaker!",
-    name: 'Sarah M.',
-    context: 'The Vault — Team of 4',
-    stars: 5,
-  },
-  {
-    quote: "We brought our team of six for a corporate outing and had an absolute blast. The Forgotten Library had us stumped a few times, but the 'aha!' moments made it so worth it. Highly recommend for team building!",
-    name: 'Jason R.',
-    context: 'The Forgotten Library — Corporate Event',
-    stars: 5,
-  },
-  {
-    quote: "My kids (ages 14 and 16) loved it just as much as we did. Lock & Logic is the perfect mix of challenging and fun. The atmosphere is top-notch — dark, immersive, and genuinely exciting.",
-    name: 'Amanda T.',
-    context: 'Circuit Breaker — Family Night',
-    stars: 5,
-  },
-  {
-    quote: "We've done escape rooms in Philly and New York, but Lock & Logic blew them all away. The attention to detail in every room is unreal. Our group of 8 split into two rooms and had a blast comparing notes afterward.",
-    name: 'Chris D.',
-    context: 'The Vault & The Forgotten Library — Friends Night Out',
-    stars: 5,
-  },
-  {
-    quote: "Booked this for my wife's birthday and it was the highlight of the evening. The game master was friendly and gave us just enough hints to keep us moving without spoiling anything. We escaped with 3 minutes left!",
-    name: 'Marcus L.',
-    context: 'Circuit Breaker — Birthday Party',
-    stars: 5,
-  },
-  {
-    quote: "I'm not usually into escape rooms but my coworkers dragged me along. I was completely hooked within the first five minutes. The storyline pulled me in and the puzzles were genuinely clever. Already planning our next visit.",
-    name: 'Priya S.',
-    context: 'The Forgotten Library — Corporate Team Building',
-    stars: 5,
-  },
-  {
-    quote: "Took my scout troop here and the kids had an incredible time. The staff was patient, encouraging, and made sure everyone felt included. It's a perfect activity for groups of teens.",
-    name: 'Denise K.',
-    context: 'The Vault — Scout Troop Outing',
-    stars: 5,
-  },
-  {
-    quote: "We come back every time a new room opens. Lock & Logic keeps raising the bar — Circuit Breaker is their best one yet. Fair warning: once you start, you'll be addicted.",
-    name: 'Tyler & Morgan B.',
-    context: 'Circuit Breaker — Repeat Visitors',
-    stars: 5,
-  },
-  {
-    quote: "Clean facility, friendly staff, and puzzles that actually make you think. No random padlocks on everything — these rooms tell a story. Worth the drive from King of Prussia.",
-    name: 'Danielle W.',
-    context: 'The Forgotten Library — Date Night',
-    stars: 5,
-  },
-];
-
-const averageRating = 5.0;
 const totalReviews = reviews.length;
 ---
 

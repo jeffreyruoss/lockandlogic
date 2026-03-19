@@ -6,12 +6,12 @@ import { rooms } from '../../data/rooms';
 import { baseUrl } from '../../utils/url';
 ---
 
-<BaseLayout title="Our Escape Rooms" description="Explore our immersive escape rooms in Pottstown, PA. Three unique themes, three unforgettable challenges.">
-  <PageHero title="Our Escape Rooms" subtitle="Three rooms. Three stories. One goal: escape before time runs out." />
+<BaseLayout title="Our Escape Rooms" description="Explore our immersive escape rooms in Pottstown, PA. Four unique themes, four unforgettable challenges.">
+  <PageHero title="Our Escape Rooms" subtitle="Four rooms. Four stories. One goal: escape before time runs out." />
 
   <section class="py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-8 md:grid-cols-2">
         {rooms.map((room) => (
           <RoomCard
             name={room.name}
@@ -31,7 +31,7 @@ import { baseUrl } from '../../utils/url';
       <div class="mt-16 rounded-xl border border-navy-700/50 bg-navy-900 p-8 text-center">
         <h2 class="mb-3 font-heading text-2xl font-bold text-steel-100">Not Sure Which Room to Try?</h2>
         <p class="mx-auto mb-6 max-w-xl text-steel-400">
-          If it's your first escape room, we recommend starting with The Forgotten Library — it's designed to be welcoming for beginners while still offering a satisfying challenge.
+          If it's your first escape room, we recommend starting with Grandma Betty's Secret Recipe — it's designed to be welcoming for beginners while still offering a satisfying challenge.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a

@@ -35,7 +35,7 @@ export const faqData: FaqCategory[] = [
       {
         question: 'Is there an age requirement?',
         answer:
-          'Players under 16 must be accompanied by a participating adult. We recommend our rooms for ages 10 and up, though The Forgotten Library is great for younger puzzle fans.',
+          'Players under 16 must be accompanied by a participating adult. We recommend our rooms for ages 10 and up, though Grandma Betty\'s Secret Recipe is great for younger puzzle fans.',
       },
       {
         question: 'Are your rooms wheelchair accessible?',

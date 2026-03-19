@@ -9,10 +9,10 @@ import { baseUrl } from '../utils/url';
     <div class="reveal mb-4 text-center">
       <span class="mb-3 inline-block text-xs font-bold uppercase tracking-[0.3em] text-teal-400 text-glow-teal">Choose Your Challenge</span>
       <h2 class="text-gold-gradient text-glow-gold font-heading text-4xl font-bold sm:text-5xl">Our Escape Rooms</h2>
-      <p class="mt-4 text-lg text-steel-400">Three worlds. One hour. No second chances.</p>
+      <p class="mt-4 text-lg text-steel-400">Four worlds. One hour. No second chances.</p>
     </div>
 
-    <div class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-14 grid gap-8 md:grid-cols-2">
       {rooms.map((room, i) => (
         <div class="reveal" style={`animation-delay: ${(i + 1) * 0.1}s;`}>
           <RoomCard

@@ -1,21 +1,7 @@
 ---
-const testimonials = [
-  {
-    quote: "The Vault was hands down the best escape room we've ever done. The puzzles were creative, the set design was incredible, and the staff made us feel like real bank robbers. We'll definitely be back for Circuit Breaker!",
-    name: 'Sarah M.',
-    context: 'The Vault — Team of 4',
-  },
-  {
-    quote: "We brought our team of six for a corporate outing and had an absolute blast. The Forgotten Library had us stumped a few times, but the 'aha!' moments made it so worth it. Highly recommend for team building!",
-    name: 'Jason R.',
-    context: 'The Forgotten Library — Corporate Event',
-  },
-  {
-    quote: "My kids (ages 14 and 16) loved it just as much as we did. Lock & Logic is the perfect mix of challenging and fun. The atmosphere is top-notch — dark, immersive, and genuinely exciting.",
-    name: 'Amanda T.',
-    context: 'Circuit Breaker — Family Night',
-  },
-];
+import { reviews } from '../data/reviews';
+
+const testimonials = reviews.slice(0, 3);
 ---
 
 <section class="relative py-24">
