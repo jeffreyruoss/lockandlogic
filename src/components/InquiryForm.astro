@@ -3,9 +3,10 @@ const inputClasses =
   'w-full rounded-lg border border-navy-700 bg-navy-950 px-4 py-3 text-sm text-steel-100 placeholder-steel-400 outline-none transition-colors focus:border-gold-400';
 const selectClasses =
   'w-full rounded-lg border border-navy-700 bg-navy-950 px-4 py-3 text-sm text-steel-100 outline-none transition-colors focus:border-gold-400';
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
-<form action="https://formspree.io/f/placeholder" method="POST" class="space-y-5">
+<form id="inquiry-form" class="space-y-5" novalidate>
   <div class="grid gap-5 sm:grid-cols-2">
     <div>
       <label for="inquiry-name" class="mb-1.5 block text-sm font-medium text-steel-100">Name</label>
@@ -56,10 +57,84 @@ const selectClasses =
     <textarea id="inquiry-message" name="message" rows="4" placeholder="Tell us about your event..." class={inputClasses}></textarea>
   </div>
 
+  <!-- Honeypot -->
+  <div style="position: absolute; left: -9999px;" aria-hidden="true">
+    <label for="inquiry-website">Website</label>
+    <input type="text" id="inquiry-website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <!-- Turnstile -->
+  <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="dark"></div>
+
+  <div id="inquiry-status" class="hidden rounded-lg px-4 py-3 text-sm" role="alert"></div>
+
   <button
     type="submit"
-    class="w-full rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500"
+    id="inquiry-submit"
+    class="w-full rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-navy-950 transition-colors hover:bg-gold-500 disabled:opacity-50 disabled:cursor-not-allowed"
   >
     Submit Inquiry
   </button>
 </form>
+
+<script>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('inquiry-submit') as HTMLButtonElement;
+  const status = document.getElementById('inquiry-status') as HTMLDivElement;
+
+  function showStatus(message: string, isError: boolean) {
+    status.textContent = message;
+    status.className = `rounded-lg px-4 py-3 text-sm ${
+      isError
+        ? 'border border-red-500/30 bg-red-500/10 text-red-300'
+        : 'border border-teal-500/30 bg-teal-500/10 text-teal-300'
+    }`;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = (form.querySelector('[name="name"]') as HTMLInputElement).value.trim();
+    const company = (form.querySelector('[name="company"]') as HTMLInputElement).value.trim();
+    const email = (form.querySelector('[name="email"]') as HTMLInputElement).value.trim();
+
+    if (!name || !company || !email) {
+      showStatus('Please fill in name, company, and email.', true);
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showStatus('Please enter a valid email address.', true);
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+    status.className = 'hidden';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('/api/group-inquiry', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        showStatus('Inquiry submitted! We\'ll be in touch soon to discuss your event.', false);
+        form.reset();
+        if (window.turnstile) {
+          window.turnstile.reset();
+        }
+      } else {
+        showStatus(result.error || 'Something went wrong. Please try again.', true);
+      }
+    } catch {
+      showStatus('Network error. Please check your connection and try again.', true);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Inquiry';
+    }
+  });
+</script>

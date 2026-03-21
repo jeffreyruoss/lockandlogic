@@ -15,7 +15,11 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env.local
 .env.production
+
+# vercel
+.vercel/
 
 # MCP config (contains API keys)
 .mcp.json
@@ -35,3 +39,4 @@ coming-soon/
 # MCP server build artifacts
 .claude/mcp-servers/image-tools/dist/
 .claude/mcp-servers/image-tools/node_modules/
+.vercel

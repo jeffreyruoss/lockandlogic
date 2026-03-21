@@ -1,3 +1,7 @@
+---
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
 <section class="relative overflow-hidden py-24">
   <div class="absolute inset-0 bg-navy-900" aria-hidden="true"></div>
   <div class="absolute left-1/2 top-0 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-teal-400/20 to-transparent" aria-hidden="true"></div>
@@ -12,25 +16,98 @@
         Be the first to hear about new rooms, special offers, and our grand opening.
       </p>
 
-      <form action="#" method="POST" class="mx-auto flex max-w-lg flex-col gap-3 sm:flex-row">
-        <label for="newsletter-email" class="sr-only">Email address</label>
-        <input
-          type="email"
-          id="newsletter-email"
-          name="email"
-          required
-          placeholder="you@example.com"
-          class="flex-1 rounded-xl border border-white/[0.08] bg-navy-950/80 px-5 py-3.5 text-sm text-steel-100 placeholder-steel-400 outline-none backdrop-blur-sm transition-all duration-300 focus:border-gold-400/60 focus:shadow-[0_0_15px_rgba(212,168,67,0.1)]"
-        />
-        <button
-          type="submit"
-          class="rounded-xl bg-gold-400 px-8 py-3.5 text-sm font-bold text-navy-950 transition-all duration-300 hover:bg-gold-500 hover:shadow-[0_0_20px_rgba(212,168,67,0.25)]"
-        >
-          Subscribe
-        </button>
+      <form id="newsletter-form" class="mx-auto flex max-w-lg flex-col gap-3 sm:flex-row sm:flex-wrap" novalidate>
+        <div class="flex flex-1 flex-col gap-3 sm:flex-row">
+          <label for="newsletter-email" class="sr-only">Email address</label>
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            class="flex-1 rounded-xl border border-white/[0.08] bg-navy-950/80 px-5 py-3.5 text-sm text-steel-100 placeholder-steel-400 outline-none backdrop-blur-sm transition-all duration-300 focus:border-gold-400/60 focus:shadow-[0_0_15px_rgba(212,168,67,0.1)]"
+          />
+          <button
+            type="submit"
+            id="newsletter-submit"
+            class="rounded-xl bg-gold-400 px-8 py-3.5 text-sm font-bold text-navy-950 transition-all duration-300 hover:bg-gold-500 hover:shadow-[0_0_20px_rgba(212,168,67,0.25)] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Subscribe
+          </button>
+        </div>
+
+        <!-- Honeypot -->
+        <div style="position: absolute; left: -9999px;" aria-hidden="true">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- Turnstile -->
+        <div class="cf-turnstile mx-auto sm:mx-0" data-sitekey={turnstileSiteKey} data-theme="dark" data-size="compact"></div>
       </form>
+
+      <div id="newsletter-status" class="mx-auto mt-4 hidden max-w-lg rounded-lg px-4 py-3 text-sm" role="alert"></div>
 
       <p class="mt-4 text-xs text-steel-400">No spam. Unsubscribe anytime.</p>
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('newsletter-submit') as HTMLButtonElement;
+  const status = document.getElementById('newsletter-status') as HTMLDivElement;
+
+  function showStatus(message: string, isError: boolean) {
+    status.textContent = message;
+    status.className = `mx-auto mt-4 max-w-lg rounded-lg px-4 py-3 text-sm ${
+      isError
+        ? 'border border-red-500/30 bg-red-500/10 text-red-300'
+        : 'border border-teal-500/30 bg-teal-500/10 text-teal-300'
+    }`;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = (form.querySelector('[name="email"]') as HTMLInputElement).value.trim();
+
+    if (!email) {
+      showStatus('Please enter your email address.', true);
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showStatus('Please enter a valid email address.', true);
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing...';
+    status.className = 'hidden';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        showStatus('You\'re subscribed! Watch your inbox for updates.', false);
+        form.reset();
+        if (window.turnstile) {
+          window.turnstile.reset();
+        }
+      } else {
+        showStatus(result.error || 'Something went wrong. Please try again.', true);
+      }
+    } catch {
+      showStatus('Network error. Please check your connection and try again.', true);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Subscribe';
+    }
+  });
+</script>

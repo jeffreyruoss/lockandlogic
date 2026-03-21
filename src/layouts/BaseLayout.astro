@@ -82,6 +82,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       }
     `} />
 
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <!-- LocalBusiness structured data -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
