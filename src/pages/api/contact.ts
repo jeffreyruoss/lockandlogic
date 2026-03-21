@@ -3,7 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { resend } from '../../lib/resend';
 import { verifyTurnstile } from '../../lib/turnstile';
 import { checkRateLimit } from '../../lib/rate-limit';
-import { sanitize, isValidEmail, isHoneypotTriggered } from '../../lib/validate';
+import { sanitize, sanitizeForSubject, isValidEmail, isHoneypotTriggered, enforceMaxLength } from '../../lib/validate';
 import { contactEmailHtml } from '../../lib/email-templates';
 
 export const prerender = false;
@@ -39,11 +39,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       }
     }
 
-    // Validate
-    const name = sanitize(formData.get('name') as string || '');
-    const email = sanitize(formData.get('email') as string || '');
-    const phone = sanitize(formData.get('phone') as string || '');
-    const message = sanitize(formData.get('message') as string || '');
+    // Validate and enforce length limits
+    const name = enforceMaxLength(sanitize(formData.get('name') as string || ''), 'name');
+    const email = enforceMaxLength(sanitize(formData.get('email') as string || ''), 'email');
+    const phone = enforceMaxLength(sanitize(formData.get('phone') as string || ''), 'phone');
+    const message = enforceMaxLength(sanitize(formData.get('message') as string || ''), 'message');
 
     if (!name || !email || !message) {
       return new Response(
@@ -61,18 +61,22 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const data = { name, email, phone, message };
 
     // Log to Supabase
-    await supabase.from('form_submissions').insert({
+    const { error: dbError } = await supabase.from('form_submissions').insert({
       form_type: 'contact',
       data,
       ip_address: clientAddress,
     });
+
+    if (dbError) {
+      console.error('Supabase insert error:', dbError.message);
+    }
 
     // Send email notification
     await resend.emails.send({
       from: `Lock & Logic <noreply@lockandlogic.com>`,
       to: import.meta.env.NOTIFICATION_EMAIL.split(',').map((e: string) => e.trim()),
       replyTo: email,
-      subject: `New Contact Form: ${name}`,
+      subject: `New Contact Form: ${sanitizeForSubject(name)}`,
       html: contactEmailHtml(data),
     });
 

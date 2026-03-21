@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { supabase } from '../../lib/supabase';
 import { verifyTurnstile } from '../../lib/turnstile';
 import { checkRateLimit } from '../../lib/rate-limit';
-import { sanitize, isValidEmail, isHoneypotTriggered } from '../../lib/validate';
+import { sanitize, escapeHtml, isValidEmail, isHoneypotTriggered, enforceMaxLength } from '../../lib/validate';
 import { subscribeToMailchimp } from '../../lib/mailchimp';
 import { resend } from '../../lib/resend';
 
@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       }
     }
 
-    const email = sanitize(formData.get('email') as string || '');
+    const email = enforceMaxLength(sanitize(formData.get('email') as string || ''), 'email');
 
     if (!email) {
       return new Response(
@@ -51,23 +51,28 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       );
     }
 
-    // Log to Supabase first (always capture the submission)
+    // Subscribe to Mailchimp, then always log to Supabase
     const mailchimpResult = await subscribeToMailchimp(email);
 
-    await supabase.from('form_submissions').insert({
+    const { error: dbError } = await supabase.from('form_submissions').insert({
       form_type: 'newsletter',
       data: { email, mailchimp_success: mailchimpResult.success },
       ip_address: clientAddress,
     });
 
+    if (dbError) {
+      console.error('Supabase insert error:', dbError.message);
+    }
+
     if (!mailchimpResult.success) {
-      // Notify about the failure
+      // Notify about the failure — escape external data in HTML
+      const adminEmail = import.meta.env.ADMIN_EMAIL || import.meta.env.NOTIFICATION_EMAIL;
       await resend.emails.send({
         from: 'Lock & Logic <noreply@lockandlogic.com>',
-        to: import.meta.env.ADMIN_EMAIL,
+        to: adminEmail,
         subject: 'Mailchimp Subscription Failed',
-        html: `<p>A newsletter subscription failed for <strong>${email}</strong>.</p>
-               <p>Error: ${mailchimpResult.error || 'Unknown'}</p>
+        html: `<p>A newsletter subscription failed for <strong>${escapeHtml(email)}</strong>.</p>
+               <p>Error: ${escapeHtml(mailchimpResult.error || 'Unknown')}</p>
                <p>The email was logged in the database. You may need to add this subscriber manually.</p>`,
       }).catch(() => {}); // Don't let notification failure block the response
 

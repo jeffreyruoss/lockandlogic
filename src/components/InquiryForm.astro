@@ -10,22 +10,22 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   <div class="grid gap-5 sm:grid-cols-2">
     <div>
       <label for="inquiry-name" class="mb-1.5 block text-sm font-medium text-steel-100">Name</label>
-      <input type="text" id="inquiry-name" name="name" required autocomplete="name" placeholder="Your name" class={inputClasses} />
+      <input type="text" id="inquiry-name" name="name" required aria-required="true" maxlength="200" autocomplete="name" placeholder="Your name" class={inputClasses} />
     </div>
     <div>
       <label for="inquiry-company" class="mb-1.5 block text-sm font-medium text-steel-100">Company</label>
-      <input type="text" id="inquiry-company" name="company" required autocomplete="organization" placeholder="Company name" class={inputClasses} />
+      <input type="text" id="inquiry-company" name="company" required aria-required="true" maxlength="200" autocomplete="organization" placeholder="Company name" class={inputClasses} />
     </div>
   </div>
 
   <div class="grid gap-5 sm:grid-cols-2">
     <div>
       <label for="inquiry-email" class="mb-1.5 block text-sm font-medium text-steel-100">Email</label>
-      <input type="email" id="inquiry-email" name="email" required autocomplete="email" placeholder="you@company.com" class={inputClasses} />
+      <input type="email" id="inquiry-email" name="email" required aria-required="true" maxlength="320" autocomplete="email" placeholder="you@company.com" class={inputClasses} />
     </div>
     <div>
       <label for="inquiry-phone" class="mb-1.5 block text-sm font-medium text-steel-100">Phone</label>
-      <input type="tel" id="inquiry-phone" name="phone" autocomplete="tel" placeholder="(555) 123-4567" class={inputClasses} />
+      <input type="tel" id="inquiry-phone" name="phone" maxlength="30" autocomplete="tel" placeholder="(555) 123-4567" class={inputClasses} />
     </div>
   </div>
 
@@ -54,19 +54,19 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
   <div>
     <label for="inquiry-message" class="mb-1.5 block text-sm font-medium text-steel-100">Additional Details</label>
-    <textarea id="inquiry-message" name="message" rows="4" placeholder="Tell us about your event..." class={inputClasses}></textarea>
+    <textarea id="inquiry-message" name="message" rows="4" maxlength="5000" placeholder="Tell us about your event..." class={inputClasses}></textarea>
   </div>
 
   <!-- Honeypot -->
   <div style="position: absolute; left: -9999px;" aria-hidden="true">
-    <label for="inquiry-website">Website</label>
-    <input type="text" id="inquiry-website" name="website" tabindex="-1" autocomplete="off" />
+    <label for="inquiry-fax">Fax</label>
+    <input type="text" id="inquiry-fax" name="fax_number" tabindex="-1" autocomplete="off" />
   </div>
 
   <!-- Turnstile -->
   <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="dark"></div>
 
-  <div id="inquiry-status" class="hidden rounded-lg px-4 py-3 text-sm" role="alert"></div>
+  <div id="inquiry-status" class="hidden rounded-lg px-4 py-3 text-sm" role="alert" aria-live="assertive"></div>
 
   <button
     type="submit"

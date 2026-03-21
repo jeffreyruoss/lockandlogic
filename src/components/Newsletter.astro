@@ -24,6 +24,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
             id="newsletter-email"
             name="email"
             required
+            aria-required="true"
+            maxlength="320"
             placeholder="you@example.com"
             class="flex-1 rounded-xl border border-white/[0.08] bg-navy-950/80 px-5 py-3.5 text-sm text-steel-100 placeholder-steel-400 outline-none backdrop-blur-sm transition-all duration-300 focus:border-gold-400/60 focus:shadow-[0_0_15px_rgba(212,168,67,0.1)]"
           />
@@ -38,14 +40,15 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
         <!-- Honeypot -->
         <div style="position: absolute; left: -9999px;" aria-hidden="true">
-          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          <label for="newsletter-fax">Fax</label>
+          <input type="text" id="newsletter-fax" name="fax_number" tabindex="-1" autocomplete="off" />
         </div>
 
         <!-- Turnstile -->
         <div class="cf-turnstile mx-auto sm:mx-0" data-sitekey={turnstileSiteKey} data-theme="dark" data-size="compact"></div>
       </form>
 
-      <div id="newsletter-status" class="mx-auto mt-4 hidden max-w-lg rounded-lg px-4 py-3 text-sm" role="alert"></div>
+      <div id="newsletter-status" class="mx-auto mt-4 hidden max-w-lg rounded-lg px-4 py-3 text-sm" role="alert" aria-live="assertive"></div>
 
       <p class="mt-4 text-xs text-steel-400">No spam. Unsubscribe anytime.</p>
     </div>

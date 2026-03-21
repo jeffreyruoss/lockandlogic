@@ -12,6 +12,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       id="contact-name"
       name="name"
       required
+      aria-required="true"
+      maxlength="200"
       autocomplete="name"
       placeholder="Your name"
       class={inputClasses}
@@ -25,6 +27,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       id="contact-email"
       name="email"
       required
+      aria-required="true"
+      maxlength="320"
       autocomplete="email"
       placeholder="you@example.com"
       class={inputClasses}
@@ -37,6 +41,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       type="tel"
       id="contact-phone"
       name="phone"
+      maxlength="30"
       autocomplete="tel"
       placeholder="(555) 123-4567"
       class={inputClasses}
@@ -49,6 +54,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       id="contact-message"
       name="message"
       required
+      aria-required="true"
+      maxlength="5000"
       rows="5"
       placeholder="How can we help?"
       class={inputClasses}
@@ -57,14 +64,14 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
   <!-- Honeypot -->
   <div style="position: absolute; left: -9999px;" aria-hidden="true">
-    <label for="contact-website">Website</label>
-    <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off" />
+    <label for="contact-fax">Fax</label>
+    <input type="text" id="contact-fax" name="fax_number" tabindex="-1" autocomplete="off" />
   </div>
 
   <!-- Turnstile -->
   <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="dark"></div>
 
-  <div id="contact-status" class="hidden rounded-lg px-4 py-3 text-sm" role="alert"></div>
+  <div id="contact-status" class="hidden rounded-lg px-4 py-3 text-sm" role="alert" aria-live="assertive"></div>
 
   <button
     type="submit"
@@ -123,7 +130,6 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       if (response.ok && result.success) {
         showStatus('Message sent! We\'ll get back to you soon.', false);
         form.reset();
-        // Reset Turnstile widget
         if (window.turnstile) {
           window.turnstile.reset();
         }

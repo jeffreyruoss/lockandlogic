@@ -8,7 +8,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://lockandlogic.com',
   adapter: vercel(),
-  security: { checkOrigin: false },
+  security: { checkOrigin: true },
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

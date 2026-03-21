@@ -3,10 +3,12 @@ import { supabase } from '../../lib/supabase';
 import { resend } from '../../lib/resend';
 import { verifyTurnstile } from '../../lib/turnstile';
 import { checkRateLimit } from '../../lib/rate-limit';
-import { sanitize, isValidEmail, isHoneypotTriggered } from '../../lib/validate';
+import { sanitize, sanitizeForSubject, isValidEmail, isHoneypotTriggered, enforceMaxLength } from '../../lib/validate';
 import { groupInquiryEmailHtml } from '../../lib/email-templates';
 
 export const prerender = false;
+
+const VALID_EVENT_TYPES = ['team-building', 'corporate-outing', 'birthday', 'celebration', 'other'];
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
@@ -36,14 +38,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       }
     }
 
-    const name = sanitize(formData.get('name') as string || '');
-    const company = sanitize(formData.get('company') as string || '');
-    const email = sanitize(formData.get('email') as string || '');
-    const phone = sanitize(formData.get('phone') as string || '');
-    const group_size = sanitize(formData.get('group_size') as string || '');
-    const event_type = sanitize(formData.get('event_type') as string || '');
-    const preferred_date = sanitize(formData.get('preferred_date') as string || '');
-    const message = sanitize(formData.get('message') as string || '');
+    const name = enforceMaxLength(sanitize(formData.get('name') as string || ''), 'name');
+    const company = enforceMaxLength(sanitize(formData.get('company') as string || ''), 'company');
+    const email = enforceMaxLength(sanitize(formData.get('email') as string || ''), 'email');
+    const phone = enforceMaxLength(sanitize(formData.get('phone') as string || ''), 'phone');
+    const group_size = enforceMaxLength(sanitize(formData.get('group_size') as string || ''), 'group_size');
+    const raw_event_type = sanitize(formData.get('event_type') as string || '');
+    const event_type = VALID_EVENT_TYPES.includes(raw_event_type) ? raw_event_type : '';
+    const preferred_date = enforceMaxLength(sanitize(formData.get('preferred_date') as string || ''), 'preferred_date');
+    const message = enforceMaxLength(sanitize(formData.get('message') as string || ''), 'message');
 
     if (!name || !company || !email) {
       return new Response(
@@ -60,17 +63,21 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
     const data = { name, company, email, phone, group_size, event_type, preferred_date, message };
 
-    await supabase.from('form_submissions').insert({
+    const { error: dbError } = await supabase.from('form_submissions').insert({
       form_type: 'group_inquiry',
       data,
       ip_address: clientAddress,
     });
 
+    if (dbError) {
+      console.error('Supabase insert error:', dbError.message);
+    }
+
     await resend.emails.send({
       from: `Lock & Logic <noreply@lockandlogic.com>`,
       to: import.meta.env.NOTIFICATION_EMAIL.split(',').map((e: string) => e.trim()),
       replyTo: email,
-      subject: `New Group Inquiry: ${company} (${name})`,
+      subject: `New Group Inquiry: ${sanitizeForSubject(company)} (${sanitizeForSubject(name)})`,
       html: groupInquiryEmailHtml(data),
     });
 
